@@ -18,14 +18,14 @@ end
 #set default ruby version
 file ::File.join(ENV['HOME'], '.ruby-version') do
   content node['rocket-fuel']['chruby']['default_ruby']
-  user node['current_user']
+  owner node['current_user']
   action :create_if_missing
 end
 
 #don't install rdoc or ri documentation
 file ::File.join(ENV['HOME'], '.gemrc') do
   content "gem: --no-rdoc --no-ri"
-  user node['current_user']
+  owner node['current_user']
   action :create_if_missing
 end
 
