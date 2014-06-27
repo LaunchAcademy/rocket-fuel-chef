@@ -7,7 +7,7 @@ dmg_package 'Sublime Text' do
 end
 
 link "/usr/local/bin/subl" do
-  to "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+  to "~/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
 end
 
 template File.join(ENV['HOME'], 'Library/Application Support Sublime Text 3/Packages/User/Preferences.sublime-settings') do
