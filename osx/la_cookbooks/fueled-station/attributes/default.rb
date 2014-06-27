@@ -6,4 +6,4 @@ default['rocket-fuel']['chruby']['rubies']['ruby'] = [
 
 default['rocket-fuel']['chruby']['default_ruby'] = '2.1.2'
 
-default['roket-fuel']['ohmyzsh']['theme'] = 're5et'
+default['rocket-fuel']['ohmyzsh']['theme'] = 're5et'
