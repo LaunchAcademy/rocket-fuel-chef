@@ -1,0 +1,55 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    build-essential (2.0.4)
+    chef_handler (1.1.6)
+    dmg (2.2.0)
+    git (4.0.2)
+      build-essential (>= 0.0.0)
+      dmg (>= 0.0.0)
+      runit (>= 1.0.0)
+      windows (>= 0.0.0)
+      yum (~> 3.0)
+      yum-epel (>= 0.0.0)
+    homebrew (1.7.2)
+    oh-my-zsh (0.4.3)
+      git (>= 0.0.0)
+      users (>= 0.0.0)
+      zsh (>= 0.0.0)
+    runit (1.5.10)
+      build-essential (>= 0.0.0)
+      yum (~> 3.0)
+      yum-epel (>= 0.0.0)
+    sudo (2.6.0)
+    users (1.7.0)
+    windows (1.31.0)
+      chef_handler (>= 0.0.0)
+    yum (3.2.2)
+    yum-epel (0.3.6)
+      yum (~> 3.0)
+    zsh (1.0.0)
+
+GIT
+  remote: https://github.com/pivotal-sprout/sprout-homebrew
+  ref: master
+  sha: 16011679968e3cb66b6772f66b4a79e6f9024561
+  specs:
+    sprout-homebrew (0.1.0)
+      homebrew (>= 1.5.4)
+
+PATH
+  remote: la_cookbooks/fueled_station
+  specs:
+    fueled_station (0.1.0)
+      dmg (>= 0.0.0)
+      homebrew (>= 0.0.0)
+      sudo (>= 0.0.0)
+
+DEPENDENCIES
+  dmg (>= 0)
+  fueled_station (>= 0)
+  homebrew (>= 0)
+  oh-my-zsh (>= 0)
+  sprout-homebrew (>= 0)
+  sudo (>= 0)
+

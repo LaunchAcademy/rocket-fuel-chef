@@ -1,0 +1,10 @@
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'homebrew'
+cookbook 'dmg'
+cookbook 'sudo'
+cookbook 'oh-my-zsh'
+cookbook 'sprout-homebrew',
+  :github => 'pivotal-sprout/sprout-homebrew'
+
+cookbook 'fueled-station', path: 'la_cookbooks/fueled-station'
