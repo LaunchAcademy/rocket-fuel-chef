@@ -1,5 +1,5 @@
 include_recipe 'homebrew'
-include_recipe 'rocket-fuel::oh-my-zsh'
+include_recipe 'fueled-station::oh-my-zsh'
 
 package 'chruby'
 package 'ruby-install'
