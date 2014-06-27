@@ -1,2 +1,4 @@
-homebrew_package 'chruby'
-homebrew_package 'ruby-install'
+include_recipe 'homebrew'
+
+package 'chruby'
+package 'ruby-install'
