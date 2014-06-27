@@ -8,9 +8,10 @@ package 'openssl'
 #install desired ruby versions
 node['rocket-fuel']['chruby']['rubies'].each do |vm, versions|
   versions.each do |version|
+    ruby_path = "/opt/rubies/#{[vm, version].join('-')}"
     execute "install ruby #{vm}: #{version}" do
-      command "ruby-install #{vm} #{version}"
-      not_if { Dir.exist?(File.join(ENV['HOME'], [vm, version].join('-'))) }
+      command "ruby-install #{vm} #{version} -i #{ruby_path}"
+      not_if { Dir.exist?(ruby_path) }
     end
   end
 end
@@ -29,7 +30,7 @@ file ::File.join(ENV['HOME'], '.gemrc') do
   action :create_if_missing
 end
 
-template ::File.join(ENV['HOME'], 'oh-my-zsh/custom/chruby.zsh') do
+template ::File.join(ENV['HOME'], '.oh-my-zsh/custom/chruby.zsh') do
   source 'chruby.zsh.erb'
   owner node['current_user']
   action :create_if_missing
