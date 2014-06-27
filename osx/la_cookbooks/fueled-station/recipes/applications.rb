@@ -31,6 +31,7 @@ homebrew_cask 'flowdock'
 homebrew_cask 'flux'
 homebrew_cask 'dash'
 homebrew_cask 'gitx-rowanj'
+homebrew_cask 'firefox'
 
 package 'heroku-toolbelt'
 
