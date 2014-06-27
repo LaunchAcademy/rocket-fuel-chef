@@ -1,4 +1,5 @@
 include_recipe 'homebrew'
+include_recipe 'rocket-fuel::oh-my-zsh'
 
 package 'chruby'
 package 'ruby-install'
@@ -25,5 +26,11 @@ end
 file ::File.join(ENV['HOME'], '.gemrc') do
   content "gem: --no-rdoc --no-ri"
   user node['current_user']
+  action :create_if_missing
+end
+
+template ::File.join(ENV['HOME'], 'oh-my-zsh/custom/chruby.zsh') do
+  source 'chruby.zsh.erb'
+  owner node['current_user']
   action :create_if_missing
 end
