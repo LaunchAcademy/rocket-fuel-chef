@@ -8,7 +8,7 @@ dmg_package 'Sublime Text' do
 end
 
 link "/usr/local/bin/subl" do
-  to "~/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+  to File.join(ENV['HOME'], "Applications/Sublime Text.app/Contents/SharedSupport/bin/subl")
 end
 
 directory File.join(ENV['HOME'], 'Library/Application Support/Sublime Text 3') do
