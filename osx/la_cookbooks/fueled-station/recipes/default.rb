@@ -1,0 +1,5 @@
+include_recipe 'rocket-fuel::oh-my-zsh'
+include_recipe 'rocket-fuel::applications'
+include_recipe 'sublime'
+include_recipe 'rocket-fuel::chruby'
+include_recipe 'rocket-fuel::node'
