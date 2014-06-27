@@ -6,9 +6,12 @@ package "brew-cask" do
   action :install
 end
 
+#fix permissions regression
 require "chef-sudo"
 sudo 'fix cask regression' do
-  command 'chown -R $USER:staff /opt/homebrew-cask'
+  user 'root'
+  group 'wheel'
+  command 'chown -R ' + node['current_user'] +':staff /opt/homebrew-cask'
 end
 
 dmg_package "Google Chrome Canary" do
