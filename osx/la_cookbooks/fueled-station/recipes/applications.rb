@@ -45,6 +45,9 @@ execute "install iterm" do
   cwd Chef::Config[:file_cache_path]
   command "unzip " + i_term_path
   command "mv iTerm.app /Applications"
+require "chef-sudo"
+sudo 'fix cask regression' do
+  command 'chown -R $USER:staff /opt/homebrew-cask'
 end
 
 #quicksilver
