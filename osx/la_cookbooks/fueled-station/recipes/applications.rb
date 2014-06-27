@@ -28,3 +28,10 @@ homebrew_cask 'github'
 homebrew_cask 'quicksilver'
 homebrew_cask 'alfred'
 homebrew_cask 'flowdock'
+homebrew_cask 'flux'
+homebrew_cask 'dash'
+homebrew_cask 'gitx-rowanj'
+
+package 'heroku-toolbelt'
+
+package 'the_silver_searcher'
