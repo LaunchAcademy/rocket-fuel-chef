@@ -1,4 +1,4 @@
-include_package 'rocket-fuel::oh-my-zsh'
+include_package 'fueled-station::oh-my-zsh'
 
 dmg_package 'Sublime Text' do
   volumes_dir 'Sublime Text'
