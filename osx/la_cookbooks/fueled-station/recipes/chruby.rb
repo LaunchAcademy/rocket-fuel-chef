@@ -10,7 +10,7 @@ node['rocket-fuel']['chruby']['rubies'].each do |vm, versions|
   versions.each do |version|
     execute "install ruby #{vm}: #{version}" do
       command "ruby-install #{vm} #{version}"
-      not_if { Dir.exist?(File.join(ENV['HOME']), [vm, version].join('-')) }
+      not_if { Dir.exist?(File.join(ENV['HOME'], [vm, version].join('-'))) }
     end
   end
 end
