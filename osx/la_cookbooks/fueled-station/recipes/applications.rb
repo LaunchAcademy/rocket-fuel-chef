@@ -7,7 +7,7 @@ package "brew-cask" do
 end
 
 #fix permissions regression
-directory '/opt/homebrew-cask' do
+mkdir_p '/opt/homebrew-cask' do
   owner node['current_user']
   action :create
 end
