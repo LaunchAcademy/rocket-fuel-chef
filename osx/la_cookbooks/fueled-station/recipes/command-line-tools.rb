@@ -2,7 +2,6 @@
 script "install command line tools" do
   interpreter "bash"
   code <<-EOS
-    #!/bin/sh
     OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $2}')
 
     # Get Xcode CLI tools
