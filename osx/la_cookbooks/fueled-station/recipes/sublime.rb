@@ -11,7 +11,8 @@ link "/usr/local/bin/subl" do
   to File.join(ENV['HOME'], "Applications/Sublime Text.app/Contents/SharedSupport/bin/subl")
 end
 
-directory File.join(ENV['HOME'], 'Library/Application Support/Sublime Text 3/Packages/User') do
+#TODO: fix recursive directory
+mkdir_p File.join(ENV['HOME'], 'Library/Application Support/Sublime Text 3/Packages/User') do
   owner node['current_user']
   action :create
 end
