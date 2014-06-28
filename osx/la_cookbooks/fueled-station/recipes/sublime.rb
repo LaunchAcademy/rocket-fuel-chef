@@ -11,7 +11,7 @@ link "/usr/local/bin/subl" do
   to File.join(ENV['HOME'], "Applications/Sublime Text.app/Contents/SharedSupport/bin/subl")
 end
 
-directory File.join(ENV['HOME'], 'Library/Application Support/Sublime Text 3') do
+directory File.join(ENV['HOME'], 'Library/Application Support/Sublime Text 3/User') do
   owner node['current_user']
   action :create
 end
