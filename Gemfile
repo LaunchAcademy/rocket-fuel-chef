@@ -4,6 +4,7 @@ gem 'librarian-chef'
 gem 'knife-ec2'
 gem 'knife-solo'
 gem 'foodcritic'
-gem 'chef-sudo'
+gem 'chef-sudo',
+  require: false
 
 gem 'soloist'

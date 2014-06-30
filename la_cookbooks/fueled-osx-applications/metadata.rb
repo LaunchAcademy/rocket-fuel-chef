@@ -1,5 +1,5 @@
-name 'fueled-station'
-description 'Configures Launch Academy Workstation'
+name 'fueled-osx-applications'
+description 'Configures Launch Academy Apps for OS X'
 
 maintainer 'Dan Pickett'
 maintainer_email 'dan.pickett@launchacademy.com'

@@ -1,0 +1,5 @@
+include_recipe 'fueled-core::default'
+include_recipe 'fueled-zsh::default'
+depends 'fueled-chruby::default'
+depends 'fueled-sublime::default'
+depends 'fueled-osx-applications::default'

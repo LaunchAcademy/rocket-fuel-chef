@@ -14,9 +14,3 @@ template ::File.join(ENV['HOME'], '.oh-my-zsh/custom/.oh-my-zsh.zsh') do
   action :create_if_missing
   variables({ theme: node['rocket-fuel']['oh-my-zsh']['theme'] })
 end
-
-user node['current_user'] do
-  action :modify
-  shell '/bin/zsh'
-end
-
