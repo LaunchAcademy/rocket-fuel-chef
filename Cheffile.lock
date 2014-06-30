@@ -5,14 +5,56 @@ SITE
     homebrew (1.7.2)
 
 PATH
-  remote: la_cookbooks/fueled-station
+  remote: la_cookbooks/fueled-chruby
   specs:
-    fueled-station (0.1.0)
+    fueled-chruby (0.1.0)
+      fueled-zsh (>= 0.0.0)
+      homebrew (>= 0.0.0)
+
+PATH
+  remote: la_cookbooks/fueled-core
+  specs:
+    fueled-core (0.1.0)
+
+PATH
+  remote: la_cookbooks/fueled-osx-applications
+  specs:
+    fueled-osx-applications (0.1.0)
       dmg (>= 0.0.0)
       homebrew (>= 0.0.0)
 
+PATH
+  remote: la_cookbooks/fueled-osx-station
+  specs:
+    fueled-osx-station (0.1.0)
+      dmg (>= 0.0.0)
+      fueled-chruby (>= 0.0.0)
+      fueled-core (>= 0.0.0)
+      fueled-osx-applications (>= 0.0.0)
+      fueled-sublime (>= 0.0.0)
+      fueled-zsh (>= 0.0.0)
+      homebrew (>= 0.0.0)
+
+PATH
+  remote: la_cookbooks/fueled-sublime
+  specs:
+    fueled-sublime (0.1.0)
+      dmg (>= 0.0.0)
+      fueled-core (>= 0.0.0)
+      fueled-zsh (>= 0.0.0)
+
+PATH
+  remote: la_cookbooks/fueled-zsh
+  specs:
+    fueled-zsh (0.1.0)
+
 DEPENDENCIES
   dmg (>= 0)
-  fueled-station (>= 0)
+  fueled-chruby (>= 0)
+  fueled-core (>= 0)
+  fueled-osx-applications (>= 0)
+  fueled-osx-station (>= 0)
+  fueled-sublime (>= 0)
+  fueled-zsh (>= 0)
   homebrew (>= 0)
 
