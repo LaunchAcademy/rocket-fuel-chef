@@ -8,3 +8,9 @@ gem 'chef-sudo',
   require: false
 
 gem 'soloist'
+gem 'mechanize'
+
+group :development do
+  gem 'pry'
+  gem 'rspec'
+end
