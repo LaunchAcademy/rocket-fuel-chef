@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../../lib/fueled_osx_build_tools/download'
+require_relative '../../libraries/fueled_osx_build_tools/download'
 
 describe FueledOsxBuildTools::Download do
   it 'retrieves a valid download link for os x mavericks' do
