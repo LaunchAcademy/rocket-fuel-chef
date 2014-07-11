@@ -10,7 +10,8 @@ cookbook 'dmg'
   'fueled-osx-station',
   'fueled-sublime',
   'fueled-zsh',
-  'fueled-osx-build-tools'
+  'fueled-osx-build-tools',
+  'fueled-ssh'
 ].each do |c|
   cookbook c,
     path: "la_cookbooks/#{c}"
