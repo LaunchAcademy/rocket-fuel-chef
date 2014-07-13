@@ -15,6 +15,7 @@ on run argv
 				delay 3 -- you can try adjusting this delay
 			end if
 		end repeat
+		delay 3
 		do JavaScript "
       function fillInForm(){
         //https://developer.apple.com/downloads/index.action

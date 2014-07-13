@@ -1,5 +1,9 @@
 require_relative 'fueled_osx_build_tools/download'
 require_relative 'fueled_osx_build_tools/os_check'
 
+require_relative 'fueled_osx_build_tools/download_routine'
+require_relative 'fueled_osx_build_tools/dmg_metadata'
+require_relative 'fueled_osx_build_tools/clt_installer'
+
 module FueledOsxBuildTools
 end

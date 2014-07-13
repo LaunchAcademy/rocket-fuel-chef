@@ -20,22 +20,28 @@ find_clt() {
   fi
 }
 
-prep_chef(){
+download_rocket_fuel(){
   cd /tmp
   rm -rf /tmp/rocket-fuel-master
   curl -LOk https://github.com/LaunchAcademy/rocket-fuel/archive/master.zip
   unzip master.zip -d /tmp/
   cd /tmp/rocket-fuel-master
-  sudo gem install bundler
-  cd /tmp/rocket-fuel-master && bundle install
 }
 
-prep_chef
+prep_chef(){
+  cd /tmp/rocket-fuel-master
+  sudo gem install bundler
+  bundle
+}
+
 find_clt
+download_rocket_fuel
 
 if [ "$CLT_INSTALLED"=false ]; then
-  bundle exec soloist run_recipe fueled-osx-build-tools
+  ruby /tmp/rocket-fuel-master/scripts/command_line_tools.rb
 fi
+
+prep_chef
 
 echo "Installing fueled-osx-station..."
 bundle exec soloist run_recipe fueled-osx-station
