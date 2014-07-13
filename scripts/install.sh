@@ -1,16 +1,17 @@
 #!/bin/bash
 
 detect_osx_version() {
-  osx_version = `sw_vers -productVersion`
+  OSX_VERSION=`sw_vers -productVersion`
 }
 
 find_clt() {
-  if [[ $result =~ "10.9" ]]; then
+  if [[ $OSX_VERSION =~ "10.9" ]]; then
     RECEIPT_FILE=/var/db/receipts/com.apple.pkg.CLTools_Executables.bom
   else
     RECEIPT_FILE=/var/db/receipts/com.apple.pkg.DeveloperToolsCLI.bom
   fi
 
+  echo $RECEIPT_FILE
   if [ -f "$RECEIPT_FILE" ]; then
     echo "Command Line Tools found"
     CLT_INSTALLED=true
@@ -34,10 +35,11 @@ prep_chef(){
   bundle
 }
 
+detect_osx_version
 find_clt
 download_rocket_fuel
 
-if [ "$CLT_INSTALLED"=false ]; then
+if [ $CLT_INSTALLED != true ]; then
   ruby /tmp/rocket-fuel-master/scripts/command_line_tools.rb
 fi
 
