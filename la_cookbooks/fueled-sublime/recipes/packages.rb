@@ -2,7 +2,8 @@ require 'uri'
 
 package_control_name = "Package Control.sublime-package"
 support_root = File.join(ENV['HOME'], '/Library/Application Support/Sublime Text 3/')
-package_root = File.join(support_root, "Packages")
+package_root = File.join(support_root, "Installed Packages")
+user_package_prefs = File.join(support_root, 'Packages/User/')
 
 mkdir_p support_root do
   owner node['current_user']
@@ -28,14 +29,14 @@ remote_file File.join(package_root, package_control_name) do
   action :create_if_missing
 end
 
-[
-  'https://github.com/jisaacks/GitGutter.git',
-  'https://github.com/titoBouzout/SideBarGit.git',
-  'https://github.com/SublimeLinter/SublimeLinter.git'
-].each do |pkg|
-  git ::File.expand_path(File.basename(pkg, '.git'), package_root) do
-    repository pkg
-    user node['current_user']
-    action :sync
-  end
+
+mkdir_p user_package_prefs do
+  owner node['current_user']
+  action :create
+end
+
+template File.join(user_package_prefs, 'Package Control.sublime-settings') do
+  source 'Package Control.sublime-settings.erb'
+  owner node['current_user']
+  action :create_if_missing
 end
