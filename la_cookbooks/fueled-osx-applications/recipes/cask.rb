@@ -12,6 +12,11 @@ mkdir_p '/opt/homebrew-cask/CaskRoom' do
   action :create
 end
 
+mkdir_p "#{ENV['HOME']}/Applications" do
+  owner node['current_user']
+  action :create
+end
+
 require "chef-sudo"
 sudo 'fix cask regression' do
   user 'root'
