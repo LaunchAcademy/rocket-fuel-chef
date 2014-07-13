@@ -7,7 +7,7 @@ package "brew-cask" do
 end
 
 #fix permissions regression
-mkdir_p '/opt/homebrew-cask' do
+mkdir_p '/opt/homebrew-cask/CaskRoom' do
   owner node['current_user']
   action :create
 end
@@ -16,5 +16,5 @@ require "chef-sudo"
 sudo 'fix cask regression' do
   user 'root'
   group 'wheel'
-  command 'chown -R ' + node['current_user'] +':staff /opt/homebrew-cask'
+  command 'chown -R ' + node['current_user'] +':staff /opt/homebrew-cask/CaskRoom'
 end
