@@ -22,3 +22,5 @@ tar zxf apt*.tar.gz -C la_cookbooks
 chef-solo -c la_cookbooks/fueled-linux-starter/config.rb -j la_cookbooks/fueled-linux-starter/roles/default.json
 
 librarian-chef install
+
+soloist run_recipe fueled-linux-station
