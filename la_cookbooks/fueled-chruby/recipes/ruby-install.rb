@@ -3,18 +3,21 @@ if platform_family?('mac_os_x')
   package 'ruby-install'
 else
   install_path = "#{Chef::Config[:file_cache_path]}/ruby-install.tar.gz"
-  remote_file chruby_path do
-    source "https://github.com/postmodern/ruby-install/archive/v0.4.3.tar.gz"
+  version = '0.4.3'
+  remote_file install_path do
+    source "https://github.com/postmodern/ruby-install/archive/v#{version}.tar.gz"
     action :create_if_missing
   end
 
-  execute 'extract ruby install' do
+  execute 'extract ruby-install' do
     command "tar -xzvf #{install_path}"
+    cwd Chef::Config[:file_cache_path]
   end
 
   require 'chef-sudo'
-  sudo 'install chruby' do
-    user root
-    command "cd #{Chef::Config[:file_cache_path]}/ruby-install* && make install"
+  sudo 'install ruby-install' do
+    user 'root'
+    cwd File.join(Chef::Config[:file_cache_path], "ruby-install-#{version}")
+    command "make install"
   end
 end
