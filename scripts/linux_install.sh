@@ -19,6 +19,6 @@ tar zxf build-essential*.tar.gz -C la_cookbooks
 knife cookbook site download apt
 tar zxf apt*.tar.gz -C la_cookbooks
 
-sudo chef-solo -c la_cookbooks/fueled-linux-station/config.rb -j la_cookbooks/fueled-linux-station/roles/default.json
+chef-solo -c la_cookbooks/fueled-linux-starter/config.rb -j la_cookbooks/fueled-linux-starter/roles/default.json
 
 librarian-chef install
