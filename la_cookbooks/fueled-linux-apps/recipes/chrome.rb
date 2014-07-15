@@ -6,7 +6,7 @@ if platform_family?('ubuntu') || platform_family?('debian')
     file_url = 'https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb'
   end
 
-  remote_file File.join(Chef::Config[:cache_path], 'chrome.deb')
+  remote_file File.join(Chef::Config[:file_cache_path], 'chrome.deb') do
     source file_url
   end
 
