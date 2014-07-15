@@ -1,18 +1,24 @@
 if platform_family?('ubuntu') || platform_family?('debian')
-  file_url = ''
-  if node['languages']['ruby']['target_cpu'] =~ /64/
-    file_url = 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
-  else
-    file_url = 'https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb'
-  end
+  chrome_installed = `which google-chrome`
+  package 'curl'
+  if chrome_installed.empty?
+    require 'chef-sudo'
+    sudo 'add chrome install source key' do
+      user 'root'
+      command 'curl https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -'
+    end
 
-  remote_file File.join(Chef::Config[:file_cache_path], 'chrome.deb') do
-    source file_url
-  end
+    sudo 'add chrome install source' do
+      google_deb_source_file = '/etc/apt/sources.list.d/google.list'
+      user 'root'
+      command "echo \"deb http://dl.google.com/linux/chrome/deb/ stable main\" >> #{google_deb_source_file}"
+      not_if { FileTest.exists?( google_deb_source_file) }
+    end
 
-  require 'chef-sudo'
-  sudo 'install chrome' do
-    user 'root'
-    command 'dpkg -i chrome.deb && apt-get -f install'
+    sudo 'apt-get update' do
+      command 'apt-get update'
+    end
+
+    package 'google-chrome-stable'
   end
 end
