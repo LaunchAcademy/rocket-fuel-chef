@@ -6,11 +6,11 @@ else
   require 'chef-sudo'
   sudo 'link sublime' do
     user 'root'
-    command 'ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime'
+    command 'ln -sf /opt/sublime_text_3/sublime_text /usr/bin/sublime'
   end
 
   sudo 'link subl' do
     user 'root'
-    command 'ln -s /opt/sublime_text_3/sublime_text /usr/bin/subl'
+    command 'ln -sf /opt/sublime_text_3/sublime_text /usr/bin/subl'
   end
 end

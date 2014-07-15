@@ -21,7 +21,6 @@ end
 require "chef-sudo"
 sudo 'ensure ownership of the sublime support root' do
   user 'root'
-  group 'wheel'
   command 'chown -R ' + node['current_user'] +':staff "' + support_root + '"'
 end
 
