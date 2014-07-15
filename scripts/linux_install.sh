@@ -8,7 +8,7 @@ download_rocket_fuel(){
 
 sudo apt-get install curl
 
-# download_rocket_fuel
+download_rocket_fuel
 
 #Chef omnibus
 curl -L https://www.opscode.com/chef/install.sh | sudo bash
