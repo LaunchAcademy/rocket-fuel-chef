@@ -2,6 +2,9 @@ site 'http://community.opscode.com/api/v1'
 
 cookbook 'homebrew'
 cookbook 'dmg'
+cookbook 'build-essential'
+cookbook 'apt'
+cookbook 'git'
 
 [
   'fueled-chruby',
@@ -11,7 +14,10 @@ cookbook 'dmg'
   'fueled-sublime',
   'fueled-zsh',
   'fueled-osx-build-tools',
-  'fueled-ssh'
+  'fueled-ssh',
+  'fueled-linux-starter',
+  'fueled-linux-apps',
+  'fueled-linux-station'
 ].each do |c|
   cookbook c,
     path: "la_cookbooks/#{c}"

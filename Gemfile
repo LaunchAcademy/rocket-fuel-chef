@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'librarian-chef'
 gem 'knife-solo'
 gem 'chef-sudo',
-  require: false
+  :require => false
 
 gem 'soloist'
 
