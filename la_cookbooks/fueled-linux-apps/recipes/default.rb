@@ -1,5 +1,7 @@
 include_recipe 'apt'
 
+include_recipe 'fueled-linux-apps::vim'
+
 include_recipe 'fueled-linux-apps::chrome'
 
 #dropbox install hangs - leave out for now
