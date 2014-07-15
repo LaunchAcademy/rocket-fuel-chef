@@ -1,4 +1,4 @@
-config_dir = File.join(ENV['HOME'], '/.ssh/config')
+config_dir = File.join(ENV['HOME'], '/.ssh')
 mkdir_p config_dir do
   owner node['current_user']
 end
