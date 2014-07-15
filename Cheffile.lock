@@ -36,6 +36,12 @@ PATH
     fueled-core (0.1.0)
 
 PATH
+  remote: la_cookbooks/fueled-linux-apps
+  specs:
+    fueled-linux-apps (0.1.0)
+      apt (>= 0.0.0)
+
+PATH
   remote: la_cookbooks/fueled-linux-starter
   specs:
     fueled-linux-starter (0.1.0)
@@ -106,6 +112,7 @@ DEPENDENCIES
   dmg (>= 0)
   fueled-chruby (>= 0)
   fueled-core (>= 0)
+  fueled-linux-apps (>= 0)
   fueled-linux-starter (>= 0)
   fueled-linux-station (>= 0)
   fueled-osx-applications (>= 0)
