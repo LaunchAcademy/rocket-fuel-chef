@@ -16,6 +16,7 @@ cookbook 'git'
   'fueled-osx-build-tools',
   'fueled-ssh',
   'fueled-linux-starter',
+  'fueled-linux-apps',
   'fueled-linux-station'
 ].each do |c|
   cookbook c,
