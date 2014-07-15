@@ -6,7 +6,7 @@ download_rocket_fuel(){
   cd /tmp/rocket-fuel-master
 }
 
-sudo apt-get install curl
+sudo apt-get install curl unzip
 
 download_rocket_fuel
 
@@ -19,8 +19,12 @@ tar zxf build-essential*.tar.gz -C la_cookbooks
 knife cookbook site download apt
 tar zxf apt*.tar.gz -C la_cookbooks
 
-chef-solo -c la_cookbooks/fueled-linux-starter/config.rb -j la_cookbooks/fueled-linux-starter/roles/default.json
+sudo mkdir -p /var/chef
+sudo chown -R $USER /var/chef
 
-librarian-chef install
+sudo chef-solo -c la_cookbooks/fueled-linux-starter/config.rb -j la_cookbooks/fueled-linux-starter/roles/default.json
+
+sudo gem install bundler
+bundle install
 
 soloist run_recipe fueled-linux-station
