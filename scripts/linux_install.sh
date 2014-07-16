@@ -6,7 +6,7 @@ download_rocket_fuel(){
   cd /tmp/rocket-fuel-master
 }
 
-sudo apt-get install curl unzip
+sudo apt-get install curl unzip -y
 
 download_rocket_fuel
 
