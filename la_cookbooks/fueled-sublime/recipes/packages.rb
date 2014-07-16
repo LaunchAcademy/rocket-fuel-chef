@@ -19,9 +19,9 @@ mkdir_p package_root do
 end
 
 require "chef-sudo"
-sudo 'ensure ownership of the sublime support root' do
+sudo 'ensure ownership of the support root' do
   user 'root'
-  command 'chown -R ' + node['current_user'] +':staff "' + support_root + '"'
+  command 'chown -R ' + node['current_user'] +':staff "' + File.join(ENV['HOME'], '.config') + '"'
 end
 
 remote_file File.join(package_root, package_control_name) do
@@ -39,4 +39,10 @@ template File.join(user_package_prefs, 'Package Control.sublime-settings') do
   source 'Package Control.sublime-settings.erb'
   owner node['current_user']
   action :create_if_missing
+end
+
+require "chef-sudo"
+sudo 'ensure ownership of the sublime support root' do
+  user 'root'
+  command 'chown -R ' + node['current_user'] +':staff "' + support_root + '"'
 end
