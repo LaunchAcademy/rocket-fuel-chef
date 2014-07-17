@@ -27,4 +27,4 @@ sudo chef-solo -c la_cookbooks/fueled-linux-starter/config.rb -j la_cookbooks/fu
 sudo gem install bundler
 bundle install
 
-soloist run_recipe fueled-linux-station
+sudo soloist run_recipe fueled-linux-station
