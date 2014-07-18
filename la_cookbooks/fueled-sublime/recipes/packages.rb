@@ -18,12 +18,6 @@ mkdir_p package_root do
   action :create
 end
 
-require "chef-sudo"
-sudo 'ensure ownership of the support root' do
-  user 'root'
-  command 'chown -R ' + node['current_user'] +':staff "' + File.join(ENV['HOME'], '.config') + '"'
-end
-
 remote_file File.join(package_root, package_control_name) do
   source "http://sublime.wbond.net/#{URI.encode(package_control_name)}"
   owner node['current_user']
