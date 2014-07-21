@@ -102,6 +102,19 @@ PATH
       fueled-zsh (>= 0.0.0)
 
 PATH
+  remote: la_cookbooks/fueled-windows-apps
+  specs:
+    fueled-windows-apps (0.1.0)
+      fueled-core (>= 0.0.0)
+
+PATH
+  remote: la_cookbooks/fueled-windows-station
+  specs:
+    fueled-windows-station (0.1.0)
+      fueled-core (>= 0.0.0)
+      fueled-windows-apps (>= 0.0.0)
+
+PATH
   remote: la_cookbooks/fueled-zsh
   specs:
     fueled-zsh (0.1.0)
@@ -120,6 +133,8 @@ DEPENDENCIES
   fueled-osx-station (>= 0)
   fueled-ssh (>= 0)
   fueled-sublime (>= 0)
+  fueled-windows-apps (>= 0)
+  fueled-windows-station (>= 0)
   fueled-zsh (>= 0)
   git (>= 0)
   homebrew (>= 0)

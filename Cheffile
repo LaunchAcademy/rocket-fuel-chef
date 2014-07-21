@@ -17,7 +17,9 @@ cookbook 'git'
   'fueled-ssh',
   'fueled-linux-starter',
   'fueled-linux-apps',
-  'fueled-linux-station'
+  'fueled-linux-station',
+  'fueled-windows-apps',
+  'fueled-windows-station'
 ].each do |c|
   cookbook c,
     path: "la_cookbooks/#{c}"
