@@ -9,4 +9,4 @@ version '0.1.0'
 depends 'homebrew'
 depends 'dmg'
 depends 'fueled-core'
-
+depends 'fueled-zsh'
