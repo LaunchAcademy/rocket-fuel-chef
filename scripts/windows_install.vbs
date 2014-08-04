@@ -35,11 +35,15 @@ end Function
 DownloadFile strFileUrl, strHDLocation
 
 Set WshShell = WScript.CreateObject("WScript.Shell")
-WshShell.Run "msiexec.exe /qb /i " & strHDLocation & "ADDLOCAL=ChefClientFeature"
+WshShell.Run "msiexec.exe /qb /i " & strHDLocation & " ADDLOCAL=ChefClientFeature"
 
 Set WshShell = WScript.CreateObject("WScript.Shell")
 WshShell.run "knife cookbook site download windows"
+'we have to expand this
 WshShell.run "tar zxf windows*.tar.gz -C la_cookbooks"
+
+WshShell.run "knife cookbook site download chef_handler"
+WshShell.run "tar zxf chef"
 
 Set WshShell = WScript.CreateObject("WScript.Shell")
 WshShell.Run "chef-solo -c la_cookbooks\fueled-windows-apps\config.rb -j la_cookbooks\fueled-windows-apps\roles\default.json"
