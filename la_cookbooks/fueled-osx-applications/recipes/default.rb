@@ -15,3 +15,5 @@ include_recipe 'fueled-osx-applications::quicksilver'
 include_recipe 'fueled-osx-applications::silver-searcher'
 include_recipe 'fueled-osx-applications::heroku-toolbelt'
 include_recipe 'fueled-osx-applications::node'
+
+include_recipe 'fueled-osx-applications::postgres'
