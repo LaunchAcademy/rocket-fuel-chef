@@ -24,6 +24,15 @@ SITE
       yum (~> 3.0)
 
 PATH
+  remote: la_cookbooks/fueled-atom
+  specs:
+    fueled-atom (0.1.0)
+      apt (>= 0.0.0)
+      fueled-core (>= 0.0.0)
+      fueled-osx-applications (>= 0.0.0)
+      homebrew (>= 0.0.0)
+
+PATH
   remote: la_cookbooks/fueled-chruby
   specs:
     fueled-chruby (0.1.0)
@@ -110,6 +119,7 @@ DEPENDENCIES
   apt (>= 0)
   build-essential (>= 0)
   dmg (>= 0)
+  fueled-atom (>= 0)
   fueled-chruby (>= 0)
   fueled-core (>= 0)
   fueled-linux-apps (>= 0)
