@@ -12,9 +12,10 @@ else
   package 'unzip'
 
   atom_archive_path = File.join(Chef::Config[:file_cache_path], 'atom.zip')
+  atom_version = '0.124.0'
   remote_file atom_archive_path do
     #TODO: fetch latest tag (use the GitHub release API)
-    source 'https://github.com/atom/atom/archive/master.tar.gz'
+    source "https://github.com/atom/atom/archive/v#{atom_version}.zip"
     owner node['current_user']
   end
 
@@ -23,7 +24,7 @@ else
     command "tar xvfz #{atom_archive_path}"
   end
 
-  atom_dir = File.join(Chef::Config[:file_cache_path], 'atom-master')
+  atom_dir = File.join(Chef::Config[:file_cache_path], "atom-#{atom_version}")
 
   execute "install atom" do
     cwd atom_dir
