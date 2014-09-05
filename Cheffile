@@ -5,6 +5,7 @@ cookbook 'dmg'
 cookbook 'build-essential'
 cookbook 'apt'
 cookbook 'git'
+cookbook 'nodejs'
 
 [
   'fueled-chruby',
