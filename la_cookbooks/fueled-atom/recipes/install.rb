@@ -11,11 +11,11 @@ else
   package 'libgnome-keyring-dev'
   package 'unzip'
 
-  atom_archive_path = File.join(Chef::Config[:file_cache_path], 'atom.zip')
+  atom_archive_path = File.join(Chef::Config[:file_cache_path], 'atom.tar.gz')
   atom_version = '0.124.0'
   remote_file atom_archive_path do
     #TODO: fetch latest tag (use the GitHub release API)
-    source "https://github.com/atom/atom/archive/v#{atom_version}.zip"
+    source "https://github.com/atom/atom/archive/v#{atom_version}.tar.gz"
     owner node['current_user']
   end
 
