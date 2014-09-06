@@ -10,6 +10,7 @@ else
 
   package 'libgnome-keyring-dev'
   package 'unzip'
+  package 'libnss3'
 
   atom_archive_path = File.join(Chef::Config[:file_cache_path], 'atom.tar.gz')
   atom_version = '0.124.0'
