@@ -1,3 +1,3 @@
 execute 'rails package' do
-  command 'apm install rails'
+  command 'apm install atom-rails'
 end
