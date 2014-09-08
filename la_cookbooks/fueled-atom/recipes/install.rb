@@ -13,7 +13,8 @@ else
   package 'libnss3'
 
   atom_archive_path = File.join(Chef::Config[:file_cache_path], 'atom.tar.gz')
-  atom_version = '0.124.0'
+  atom_version = node['rocket-fuel']['atom']['version']
+
   remote_file atom_archive_path do
     #TODO: fetch latest tag (use the GitHub release API)
     source "https://github.com/atom/atom/archive/v#{atom_version}.tar.gz"
