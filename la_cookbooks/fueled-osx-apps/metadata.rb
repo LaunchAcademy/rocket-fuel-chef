@@ -1,4 +1,4 @@
-name 'fueled-osx-applications'
+name 'fueled-osx-apps'
 description 'Configures Launch Academy Apps for OS X'
 
 maintainer 'Dan Pickett'

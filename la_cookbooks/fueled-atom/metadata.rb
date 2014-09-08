@@ -8,6 +8,6 @@ version '0.1.0'
 
 depends 'homebrew'
 depends 'fueled-core'
-depends 'fueled-osx-applications'
+depends 'fueled-osx-apps'
 depends 'fueled-linux-starter'
 depends 'fueled-linux-apps'
