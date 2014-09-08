@@ -1,5 +1,5 @@
 if platform_family?('mac_os_x')
-  include_recipe 'fueled-osx-applications::cask'
+  include_recipe 'fueled-osx-apps::cask'
   homebrew_cask 'atom'
 else
   include_recipe 'apt'

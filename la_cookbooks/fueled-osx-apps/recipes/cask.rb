@@ -1,6 +1,6 @@
 require "chef-sudo"
 
-include_recipe 'fueled-osx-applications::homebrew'
+include_recipe 'fueled-osx-apps::homebrew'
 
 homebrew_tap 'caskroom/cask'
 
