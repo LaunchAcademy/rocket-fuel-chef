@@ -117,5 +117,6 @@ DEPENDENCIES
   knife-solo
   librarian-chef
   pry
+  rake
   rspec
   soloist
