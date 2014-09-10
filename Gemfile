@@ -7,6 +7,8 @@ gem 'chef-sudo',
 
 gem 'soloist'
 
+gem 'rake'
+
 group :development do
   # gem 'foodcritic'
   gem 'pry'
