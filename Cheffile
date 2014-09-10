@@ -20,6 +20,8 @@ cookbook 'nodejs'
   'fueled-linux-apps',
   'fueled-linux-station',
   'fueled-atom'
+  'fueled-windows-apps',
+  'fueled-windows-station'
 ].each do |c|
   cookbook c,
     path: "la_cookbooks/#{c}"

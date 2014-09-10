@@ -3,3 +3,5 @@
 /.vagrant/
 /cookbooks
 /tmp
+/la_cookbooks/fueled-windows-station/resources/vendor/*
+/la_cookbooks/fueled-windows-station/resources/Output/*
