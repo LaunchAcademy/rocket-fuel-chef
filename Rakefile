@@ -22,4 +22,11 @@ namespace :win do
     download "https://opscode-omnibus-packages.s3.amazonaws.com/windows/2008r2/" +
       "x86_64/chef-windows-11.16.0-1.windows.msi", vendor_path
   end
+
+  desc "vendor cookbooks into the vendor directory for the installer"
+  task :vendorize_cookbooks do
+    `bundle exec librarian-chef install`
+    tar_path = File.join(File.dirname(__FILE__), 'la_cookbooks/fueled-windows-station/resources/vendor/cookbooks.tar.gz')
+    `tar -pczf #{tar_path} cookbooks`
+  end
 end
