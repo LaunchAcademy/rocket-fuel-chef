@@ -10,7 +10,7 @@ cookbook 'nodejs'
 [
   'fueled-chruby',
   'fueled-core',
-  'fueled-osx-applications',
+  'fueled-osx-apps',
   'fueled-osx-station',
   'fueled-sublime',
   'fueled-zsh',
@@ -19,7 +19,7 @@ cookbook 'nodejs'
   'fueled-linux-starter',
   'fueled-linux-apps',
   'fueled-linux-station',
-  'fueled-atom'
+  'fueled-atom',
   'fueled-windows-apps',
   'fueled-windows-station'
 ].each do |c|
