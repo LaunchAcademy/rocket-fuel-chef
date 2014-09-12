@@ -3,7 +3,8 @@ def download(from, to, filename = from.split("/").last)
   require 'uri'
   uri = URI.parse(from)
   path = File.join(to, filename)
-  if !FileTest.exists?
+  FileUtils.mkdir_p(to)
+  if !FileTest.exists?(path)
     Net::HTTP.start(uri.host) do |http|
       resp = http.get(uri.path)
       open(path, "wb") do |file|
@@ -17,6 +18,9 @@ vendor_path = File.join(File.dirname(__FILE__),
   'la_cookbooks/fueled-windows-station/resources/vendor')
 
 namespace :win do
+  desc "prepare the windows installer"
+  task :prepare => [:fetch_prereqs, :vendorize_cookbooks]
+
   desc "fetch windows prerequisites for building the installer"
   task :fetch_prereqs do
     download "https://opscode-omnibus-packages.s3.amazonaws.com/windows/2008r2/" +
