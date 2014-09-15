@@ -46,4 +46,11 @@ namespace :win do
   task :extract_cookbooks do
     `cd #{tar_dir} && tar -xvf #{tar_path}`
   end
+
+  desc "vendor cookbooks into the vendor directory for the installer"
+  task :vendorize_cookbooks do
+    `bundle exec librarian-chef install`
+    tar_path = File.join(File.dirname(__FILE__), 'la_cookbooks/fueled-windows-station/resources/vendor/cookbooks.tar.gz')
+    `tar -pczf #{tar_path} cookbooks`
+  end
 end
