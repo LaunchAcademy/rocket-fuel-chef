@@ -2,6 +2,10 @@
 
 Use this to get all of your applications installed and optimized for web development with Ruby on Rails.
 
+From the command line:
+for Mac `curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel/master/scripts/mac_install.sh | bash`
+for Linux `curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel/master/scripts/linux_install.sh | bash`
+
 Tested via http://grahamgilbert.com/blog/2013/08/23/creating-an-os-x-base-box-for-vagrant-with-packer/
 
 
