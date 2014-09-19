@@ -6,6 +6,7 @@ cookbook 'build-essential'
 cookbook 'apt'
 cookbook 'git'
 cookbook 'nodejs'
+cookbook 'chocolatey'
 
 [
   'fueled-chruby',
