@@ -1,6 +1,9 @@
 if platform_family?('mac_os_x')
   include_recipe 'fueled-osx-apps::cask'
   homebrew_cask 'atom'
+elsif platform_family?('windows')
+  include_recipe 'fueled-windows-apps::chocolatey'
+  chocolatey 'Atom'
 else
   include_recipe 'apt'
   include_recipe 'build-essential'
