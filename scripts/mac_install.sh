@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 detect_osx_version() {
   OSX_VERSION=`sw_vers -productVersion`
