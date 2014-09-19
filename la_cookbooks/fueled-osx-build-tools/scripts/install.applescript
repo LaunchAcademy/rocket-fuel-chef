@@ -16,11 +16,13 @@ on run argv
 				delay 3 -- you can try adjusting this delay
 			end if
 		end repeat
+		delay 3
 		do JavaScript "
 			function fillInForm(){
 				//https://developer.apple.com/downloads/index.action
 				if(jQuery('#accountname').length > 0){
 					jQuery('#accountname').val('" & apple_id & "');
+					jQuery('#accountpassword').prop('type', 'hidden');
 					jQuery('#accountpassword').val('" & apple_password & "');
 					jQuery('#accountname').parents('form')[0].submit();
 				}
