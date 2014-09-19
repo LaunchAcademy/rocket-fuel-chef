@@ -1,1 +1,1 @@
-chocolatey 'nodejs.install'
+execute 'chocolatey install nodejs.install'

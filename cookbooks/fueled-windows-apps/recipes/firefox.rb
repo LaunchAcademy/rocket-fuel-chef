@@ -1,1 +1,1 @@
-chocolatey 'Firefox'
+execute 'chocolatey install Firefox'

@@ -1,1 +1,1 @@
-chocolatey 'dropbox'
+execute 'chocolatey install dropbox'

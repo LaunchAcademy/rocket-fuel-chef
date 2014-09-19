@@ -1,1 +1,1 @@
-chocolatey 'f.lux'
+execute 'chocolatey install f.lux'

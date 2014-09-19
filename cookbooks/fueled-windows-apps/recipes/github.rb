@@ -1,1 +1,1 @@
-chocolatey 'githubforwindows'
+execute 'chocolatey install githubforwindows'

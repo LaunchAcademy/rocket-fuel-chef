@@ -1,1 +1,1 @@
-chocolatey 'GoogleChrome'
+execute 'chocolatey install GoogleChrome'

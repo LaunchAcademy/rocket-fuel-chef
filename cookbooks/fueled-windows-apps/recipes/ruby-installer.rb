@@ -1,1 +1,1 @@
-chocolatey 'ruby'
+execute 'chocolatey install ruby'

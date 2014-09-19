@@ -1,1 +1,1 @@
-chocolatey 'GoogleChrome.Canary'
+execute 'chocolatey install GoogleChrome.Canary'
