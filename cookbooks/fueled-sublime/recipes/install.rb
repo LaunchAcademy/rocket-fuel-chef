@@ -6,7 +6,7 @@ if platform_family?('mac_os_x')
     action :install
   end
 elsif platform_family?('windows')
-  include_recipe 'fueled-windows-apps::chocolatey'
+  include_receipe 'fueled-windows-apps::chocolatey'
   chocolatey 'SublimeText3'
 else
   sublime_archive_path = File.join(Chef::Config[:file_cache_path], 'sublime.tar.bz2')
