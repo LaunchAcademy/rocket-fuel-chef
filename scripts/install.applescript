@@ -1,9 +1,10 @@
 on run argv
-  set apple_id to the text returned of (display dialog "Rocket Fuel: please enter your AppleID email:" with title "Apple ID" default answer "" buttons {"OK"} default button 1)
-  set apple_password to the text returned of (display dialog "Rocket Fuel: please enter your AppleID password:" with title "Password" with icon caution default answer "" buttons {"OK"} default button 1 with hidden answer)
-
   tell application "Safari"
   	activate
+
+    set apple_id to the text returned of (display dialog "Rocket Fuel: please enter your AppleID email:" with title "Apple ID" default answer "" buttons {"OK"} default button 1)
+    set apple_password to the text returned of (display dialog "Rocket Fuel: please enter your AppleID password:" with title "Password" with icon caution default answer "" buttons {"OK"} default button 1 with hidden answer)
+
   	open location "https://developer.apple.com/downloads/index.action"
   	delay 3 -- this is a delay to allow the page to start loading
   	--wait till it's loaded
