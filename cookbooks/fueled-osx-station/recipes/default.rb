@@ -1,0 +1,7 @@
+include_recipe 'fueled-core::default'
+include_recipe 'fueled-ssh::default'
+include_recipe 'fueled-zsh::default'
+include_recipe 'fueled-chruby::default'
+include_recipe 'fueled-sublime::default'
+include_recipe 'fueled-atom::default'
+include_recipe 'fueled-osx-apps::default'
