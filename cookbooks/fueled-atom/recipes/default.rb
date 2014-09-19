@@ -7,7 +7,7 @@ include_recipe 'fueled-atom::rails-rspec'
 
 # include_recipe 'fueled-atom::linter'
 include_recipe 'fueled-atom::linter-ruby'
-include_recipe 'fueled-atom::linter-jshint'
+# include_recipe 'fueled-atom::linter-jshint'
 
 if node['rocket-fuel']['editor'] == 'atom'
   include_recipe 'fueled-atom::zsh'
