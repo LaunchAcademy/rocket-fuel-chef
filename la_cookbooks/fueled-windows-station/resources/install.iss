@@ -20,7 +20,7 @@ Source: "vendor\cookbooks.tar.gz"; DestDir: "{tmp}"
 [Run]
 Filename: "msiexec.exe"; Parameters: "/qb /i ""{tmp}\chef-windows-11.16.0-1.windows.msi""";
 Filename: "tar.exe"; Parameters: "zxf ""{tmp}\cookbooks.tar.gz""";
-Filename: "chef-solo.bat"; Parameters: "-c ""{tmp}\cookbooks\fueled-windows-apps\config.rb"" -j ""{tmp}\cookbooks\fueled-windows-apps\roles\default.json""";
+Filename: "chef-solo.bat"; Parameters: "-c ""{tmp}\cookbooks\fueled-windows-station\config.rb"" -j ""{tmp}\cookbooks\fueled-windows-station\roles\default.json""";
 
 [Code]
 procedure InitializeWizard();

@@ -8,3 +8,5 @@ version '0.1.0'
 
 depends 'fueled-core'
 depends 'fueled-windows-apps'
+depends 'fueled-atom'
+depends 'fueled-sublime'
