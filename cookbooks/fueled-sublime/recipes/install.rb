@@ -6,9 +6,8 @@ if platform_family?('mac_os_x')
     action :install
   end
 elsif platform_family?('windows')
-  windows_package 'Sublime' do
-    source 'http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%203059%20Setup.exe'
-  end
+  include_receipe 'fueled-windows-apps::chocolatey'
+  chocolatey 'SublimeText3'
 else
   sublime_archive_path = File.join(Chef::Config[:file_cache_path], 'sublime.tar.bz2')
   remote_file sublime_archive_path do
