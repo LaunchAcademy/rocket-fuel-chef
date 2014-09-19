@@ -38,8 +38,7 @@ template File.join(user_package_prefs, 'Package Control.sublime-settings') do
   action :create_if_missing
 end
 
-require "chef-sudo"
-sudo 'ensure ownership of the sublime support root' do
+execute 'ensure ownership of the sublime support root' do
   user 'root'
   command 'chown -R ' + node['current_user'] +':staff "' + support_root + '"'
   not_if { platform_family?('windows') }

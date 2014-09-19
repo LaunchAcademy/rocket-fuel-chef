@@ -33,8 +33,7 @@ else
     command './script/build'
   end
 
-  require 'chef-sudo'
-  sudo 'install atom binaries/scripts' do
+  execute 'install atom binaries/scripts' do
     user 'root'
     cwd atom_dir
     command "./script/grunt install"

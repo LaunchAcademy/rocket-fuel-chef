@@ -17,8 +17,7 @@ template File.join(zsh_home, 'custom/.oh-my-zsh.zsh') do
   variables({ theme: node['rocket-fuel']['oh-my-zsh']['theme'] })
 end
 
-require "chef-sudo"
-sudo 'ensure ownership of ohmyzsh home' do
+execute 'ensure ownership of ohmyzsh home' do
   user 'root'
   command 'chown -R ' + node['current_user'] +':staff "' + zsh_home + '"'
 end

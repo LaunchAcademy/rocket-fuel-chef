@@ -14,8 +14,7 @@ else
     command "tar -xzvf #{chruby_path}"
   end
 
-  require 'chef-sudo'
-  sudo 'install chruby' do
+  execute 'install chruby' do
     user 'root'
     cwd File.join(Chef::Config[:file_cache_path], "chruby-#{version}")
     command "make install"

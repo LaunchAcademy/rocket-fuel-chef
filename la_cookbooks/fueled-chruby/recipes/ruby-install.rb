@@ -14,8 +14,7 @@ else
     cwd Chef::Config[:file_cache_path]
   end
 
-  require 'chef-sudo'
-  sudo 'install ruby-install' do
+  execute 'install ruby-install' do
     user 'root'
     cwd File.join(Chef::Config[:file_cache_path], "ruby-install-#{version}")
     command "make install"

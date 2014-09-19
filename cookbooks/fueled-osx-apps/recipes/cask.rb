@@ -1,5 +1,3 @@
-require "chef-sudo"
-
 include_recipe 'fueled-osx-apps::homebrew'
 
 homebrew_tap 'caskroom/cask'
@@ -21,13 +19,13 @@ mkdir_p app_dir do
   action :create
 end
 
-sudo 'fix caskroom regression' do
+execute 'fix caskroom regression' do
   user 'root'
   group 'wheel'
   command 'chown -R ' + node['current_user'] +':staff /opt/homebrew-cask/CaskRoom'
 end
 
-sudo 'fix ~/Applications perms' do
+execute 'fix ~/Applications perms' do
   user 'root'
   group 'wheel'
   command 'chown -R ' + node['current_user'] +':staff ' + app_dir

@@ -21,8 +21,7 @@ else
     command "tar xjvf #{sublime_archive_path}"
   end
 
-  require 'chef-sudo'
-  sudo 'move sublime text 3' do
+  execute 'move sublime text 3' do
     user 'root'
     command "mv #{File.join(Chef::Config[:file_cache_path], 'sublime_text_3')} /opt/"
     only_if { !FileTest.exists?('/opt/sublime_text_3') }
