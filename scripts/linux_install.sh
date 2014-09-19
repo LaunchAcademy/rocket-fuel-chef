@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 download_rocket_fuel(){
   cd /tmp
   rm -rf /tmp/rocket-fuel-master
