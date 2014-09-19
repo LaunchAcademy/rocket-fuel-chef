@@ -31,8 +31,7 @@ download_rocket_fuel(){
 
 prep_chef(){
   cd /tmp/rocket-fuel-master
-  sudo gem install bundler
-  bundle
+  curl -L https://www.getchef.com/chef/install.sh | sudo bash
 }
 
 detect_osx_version
@@ -46,5 +45,4 @@ fi
 prep_chef
 
 echo "Installing fueled-osx-station..."
-bundle exec soloist run_recipe fueled-osx-station
-
+sudo chef-solo -c cookbooks/fueled-osx-station/config.rb -j cookbooks/fueled-osx-station/roles/default.json
