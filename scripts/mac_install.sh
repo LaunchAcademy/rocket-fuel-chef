@@ -45,4 +45,4 @@ fi
 prep_chef
 
 echo "Installing fueled-osx-station..."
-sudo chef-solo -c cookbooks/fueled-osx-station/config.rb -j cookbooks/fueled-osx-station/roles/default.json
+chef-solo -c cookbooks/fueled-osx-station/config.rb -j cookbooks/fueled-osx-station/roles/default.json
