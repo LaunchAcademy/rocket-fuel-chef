@@ -18,8 +18,9 @@ vendor_path = File.join(File.dirname(__FILE__),
   'la_cookbooks/fueled-windows-station/resources/vendor')
 
 namespace :win do
+  # task :prepare => [:fetch_prereqs, :vendorize_cookbooks, :extract_cookbooks]
   desc "prepare the windows installer"
-  task :prepare => [:fetch_prereqs, :vendorize_cookbooks, :extract_cookbooks]
+  task :prepare => [:fetch_prereqs, :vendorize_cookbooks]
 
   desc "fetch windows prerequisites for building the installer"
   task :fetch_prereqs do
