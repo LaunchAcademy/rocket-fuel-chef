@@ -12,15 +12,18 @@ VersionInfoCopyright=2014
 VersionInfoProductName=RocketFuel Installer
 VersionInfoProductVersion=0.1
 DefaultDirName={pf}\Rocket Fuel
+SolidCompression=True
+AllowCancelDuringInstall=False
+Uninstallable=no
 
 [Files]
-Source: "vendor\chef-windows-11.16.0-1.windows.msi"; DestDir: "{tmp}"
-Source: "vendor\cookbooks.tar.gz"; DestDir: "{tmp}"
+Source: "vendor\chef-windows-11.16.0-1.windows.msi"; DestDir: "{app}"
+Source: "vendor\cookbooks.tar.gz"; DestDir: "{app}"
+Source: "run_recipe.bat"; DestDir: "{app}"
 
 [Run]
-Filename: "msiexec.exe"; Parameters: "/qb /i ""{tmp}\chef-windows-11.16.0-1.windows.msi""";
-Filename: "tar.exe"; Parameters: "zxf ""{tmp}\cookbooks.tar.gz""";
-Filename: "chef-solo.bat"; Parameters: "-c ""{tmp}\cookbooks\fueled-windows-station\config.rb"" -j ""{tmp}\cookbooks\fueled-windows-station\roles\default.json""";
+Filename: "msiexec.exe"; Parameters: "/qb /i ""{app}\chef-windows-11.16.0-1.windows.msi"""
+Filename: "{app}\run_recipe.bat"; Parameters: "{app}"
 
 [Code]
 procedure InitializeWizard();
