@@ -6,13 +6,3 @@ template chruby_zsh_path do
   action :create_if_missing
   only_if { FueledZsh.installed? }
 end
-
-#also source chruby.zsh so chef can make use of it in subsequent recipes
-execute 'source chruby.zsh' do
-  command "source #{chruby_zsh_path}"
-  only_if { FueledZsh.installed? }
-end
-
-execute "chruby #{node['rocket-fuel']['chruby']['default-ruby']}" do
-  only_if { FueledZsh.installed? }
-end
