@@ -19,7 +19,6 @@ SITE
       windows (>= 0.0.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
-    homebrew (1.9.0)
     ms_dotnet2 (1.0.0)
       windows (>= 0.0.0)
     ms_dotnet4 (1.0.2)
@@ -45,6 +44,13 @@ SITE
     yum (3.3.1)
     yum-epel (0.5.1)
       yum (~> 3.0)
+
+GIT
+  remote: https://github.com/dpickett/homebrew
+  ref: patch-1
+  sha: 69f1e72ff51e041583ba5788b62adea16e9b9555
+  specs:
+    homebrew (1.9.0)
 
 PATH
   remote: la_cookbooks/fueled-atom
