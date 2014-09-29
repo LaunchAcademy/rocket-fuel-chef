@@ -1,15 +1,18 @@
-# Rocket Fuel for Mac OSX
+# Rocket Fuel
 
 Use this to get all of your applications installed and optimized for web development with Ruby on Rails.
 
-From the command line:
-for Mac `curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel/master/scripts/mac_install.sh | sudo bash`
-for Linux `curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel/master/scripts/linux_install.sh | sudo bash`
+From the command line for Mac OS X and Linux:
+
+```bash
+curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel/master/scripts/install.sh | sudo bash
+```
+
+For Windows, we have supplied an experimental [installer][windows-installer] that installs a limited set of tools to get started with Ruby development.
 
 Tested via http://grahamgilbert.com/blog/2013/08/23/creating-an-os-x-base-box-for-vagrant-with-packer/
 
-
-### Default OSX Configuration Will Install:
+### Default OS X Configuration Will Install:
 
 * [chruby](https://github.com/postmodern/chruby)
 * [ruby-install](https://github.com/postmodern/ruby-install)
@@ -42,3 +45,5 @@ Tested via http://grahamgilbert.com/blog/2013/08/23/creating-an-os-x-base-box-fo
 * ZSH utility scripts are added to `~/.oh-my-zsh/custom`
 * A ZSH utility script is created to make Sublime Text the default editor
 * A ZSH utility script is created to make the `chruby` command functional
+
+[windows-installer]: 'http://assets.launchacademy.com/rocket_fuel_windows.exe'
