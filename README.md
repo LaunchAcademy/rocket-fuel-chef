@@ -5,7 +5,7 @@ Use this to get all of your applications installed and optimized for web develop
 From the command line for Mac OS X and Linux:
 
 ```bash
-curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel/master/scripts/install.sh | sudo bash
+curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel-chef/master/scripts/install.sh | sudo bash
 ```
 
 For Windows, we have supplied an experimental [installer][windows-installer] that installs a limited set of tools to get started with Ruby development.
