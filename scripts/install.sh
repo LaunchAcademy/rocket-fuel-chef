@@ -24,13 +24,13 @@ find_clt() {
 download_rocket_fuel(){
   cd /tmp
   rm -rf /tmp/rocket-fuel-master
-  curl -LOk https://github.com/LaunchAcademy/rocket-fuel/archive/master.zip
+  curl -LOk https://github.com/LaunchAcademy/rocket-fuel-chef/archive/master.zip
   unzip master.zip -d /tmp/
-  cd /tmp/rocket-fuel-master
+  cd /tmp/rocket-fuel-chef-master
 }
 
 prep_chef(){
-  cd /tmp/rocket-fuel-master
+  cd /tmp/rocket-fuel-chef-master
   curl -L https://www.getchef.com/chef/install.sh | sudo bash
 }
 
@@ -65,7 +65,7 @@ mac_install(){
   download_rocket_fuel
 
   if [ $CLT_INSTALLED != true ]; then
-    ruby /tmp/rocket-fuel-master/scripts/command_line_tools.rb
+    ruby /tmp/rocket-fuel-chef-master/scripts/command_line_tools.rb
   fi
 
   prep_chef
