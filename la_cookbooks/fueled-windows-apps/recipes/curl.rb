@@ -1,1 +1,1 @@
-execute 'chocolatey install curl'
+execute 'choco install curl'

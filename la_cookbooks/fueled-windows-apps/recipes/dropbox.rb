@@ -1,1 +1,1 @@
-execute 'chocolatey install dropbox'
+execute 'choco install dropbox'

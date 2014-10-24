@@ -1,1 +1,1 @@
-execute 'chocolatey install GoogleChrome.Canary'
+execute 'choco install GoogleChrome.Canary'

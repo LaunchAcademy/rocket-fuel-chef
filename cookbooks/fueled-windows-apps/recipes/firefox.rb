@@ -1,1 +1,1 @@
-execute 'chocolatey install Firefox'
+execute 'choco install Firefox'

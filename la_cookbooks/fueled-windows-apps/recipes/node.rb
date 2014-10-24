@@ -1,1 +1,1 @@
-execute 'chocolatey install nodejs.install'
+execute 'choco install nodejs.install'

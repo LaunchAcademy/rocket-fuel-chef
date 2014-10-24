@@ -1,1 +1,1 @@
-execute 'chocolatey install f.lux'
+execute 'choco install f.lux'

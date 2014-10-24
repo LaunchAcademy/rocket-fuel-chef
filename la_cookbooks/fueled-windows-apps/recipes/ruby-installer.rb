@@ -1,1 +1,1 @@
-execute 'chocolatey install ruby'
+execute 'choco install ruby'
