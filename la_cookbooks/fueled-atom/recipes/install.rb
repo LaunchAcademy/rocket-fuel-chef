@@ -3,7 +3,7 @@ if platform_family?('mac_os_x')
   homebrew_cask 'atom'
 elsif platform_family?('windows')
   include_recipe 'fueled-windows-apps::chocolatey'
-  execute 'chocolatey install Atom'
+  choco 'Atom'
 else
   include_recipe 'apt'
   include_recipe 'build-essential'

@@ -1,1 +1,1 @@
-execute 'choco install f.lux'
+choco 'f.lux'

@@ -1,1 +1,1 @@
-execute 'choco install ruby'
+choco 'ruby'

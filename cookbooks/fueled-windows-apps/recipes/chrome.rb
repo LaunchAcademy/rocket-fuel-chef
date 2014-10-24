@@ -1,1 +1,1 @@
-execute 'choco install GoogleChrome'
+choco 'GoogleChrome'

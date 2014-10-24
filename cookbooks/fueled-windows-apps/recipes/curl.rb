@@ -1,1 +1,1 @@
-execute 'choco install curl'
+choco 'curl'

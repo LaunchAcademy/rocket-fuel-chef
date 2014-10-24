@@ -1,1 +1,1 @@
-execute 'choco install Firefox'
+choco 'Firefox'

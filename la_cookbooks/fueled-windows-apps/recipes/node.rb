@@ -1,1 +1,1 @@
-execute 'choco install nodejs.install'
+choco 'nodejs.install'

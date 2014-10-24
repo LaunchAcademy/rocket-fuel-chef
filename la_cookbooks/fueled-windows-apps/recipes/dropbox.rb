@@ -1,1 +1,1 @@
-execute 'choco install dropbox'
+choco 'dropbox'
