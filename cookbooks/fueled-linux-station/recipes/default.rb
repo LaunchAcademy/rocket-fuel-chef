@@ -1,3 +1,5 @@
+include_recipe 'fueled-linux-starter::prereqs'
+
 include_recipe 'apt'
 apt_package 'git'
 
