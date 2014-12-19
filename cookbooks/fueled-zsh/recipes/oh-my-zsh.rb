@@ -10,6 +10,11 @@ script "oh-my-zsh install from github" do
   not_if { File.directory?(zsh_home) }
 end
 
+mkdir_p File.join(zsh_home, 'custom') do
+  owner node['current_user']
+  action :create
+end
+
 template File.join(zsh_home, 'custom/.oh-my-zsh.zsh') do
   source 'oh-my-zsh.zsh.erb'
   owner node['current_user']

@@ -1,4 +1,4 @@
-name 'fueled-station'
+name 'fueled-osx-station'
 description 'Configures Launch Academy Workstation'
 
 maintainer 'Dan Pickett'
