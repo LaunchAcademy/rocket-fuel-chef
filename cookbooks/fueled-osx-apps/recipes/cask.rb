@@ -8,21 +8,22 @@ end
 
 #fix permissions regression
 mkdir_p '/opt/homebrew-cask/CaskRoom' do
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create
 end
 
 app_dir = "#{ENV['HOME']}/Applications"
 
 mkdir_p app_dir do
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create
 end
 
 execute 'fix caskroom regression' do
-  command 'chown -R $USER /opt/homebrew-cask/CaskRoom'
+  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] +
+    ' /opt/homebrew-cask/CaskRoom'
 end
 
 execute 'fix ~/Applications perms' do
-  command 'chown -R $USER ' + app_dir
+  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] + ' ' + app_dir
 end

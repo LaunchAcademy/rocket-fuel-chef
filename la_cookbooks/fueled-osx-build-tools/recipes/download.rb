@@ -42,6 +42,6 @@ ruby_block "download CLT" do
 end
 
 file dmg_destination do
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :touch
 end

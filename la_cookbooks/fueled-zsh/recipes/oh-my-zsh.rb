@@ -11,17 +11,17 @@ script "oh-my-zsh install from github" do
 end
 
 mkdir_p File.join(zsh_home, 'custom') do
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create
 end
 
 template File.join(zsh_home, 'custom/.oh-my-zsh.zsh') do
   source 'oh-my-zsh.zsh.erb'
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create_if_missing
   variables({ theme: node['rocket-fuel']['oh-my-zsh']['theme'] })
 end
 
 execute 'ensure ownership of ohmyzsh home' do
-  command 'chown -R ' + node['current_user'] +':staff "' + zsh_home + '"'
+  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] +':staff "' + zsh_home + '"'
 end

@@ -12,33 +12,33 @@ package_root = File.join(support_root, "Installed Packages")
 user_package_prefs = File.join(support_root, 'Packages/User/')
 
 mkdir_p support_root do
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create
 end
 
 mkdir_p package_root do
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create
 end
 
 remote_file File.join(package_root, package_control_name) do
   source "http://sublime.wbond.net/#{URI.encode(package_control_name)}"
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create_if_missing
 end
 
 mkdir_p user_package_prefs do
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create
 end
 
 template File.join(user_package_prefs, 'Package Control.sublime-settings') do
   source 'Package Control.sublime-settings.erb'
-  owner node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create_if_missing
 end
 
 execute 'ensure ownership of the sublime support root' do
-  command 'chown -R ' + node['current_user'] +':staff "' + support_root + '"'
+  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] +':staff "' + support_root + '"'
   not_if { platform_family?('windows') }
 end

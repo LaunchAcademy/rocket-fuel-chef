@@ -21,7 +21,7 @@ else
   remote_file atom_archive_path do
     #TODO: fetch latest tag (use the GitHub release API)
     source "https://github.com/atom/atom/archive/v#{atom_version}.tar.gz"
-    owner node['current_user']
+    owner node['SUDO_USER'] || node['current_user']
   end
 
   execute "extract atom" do
