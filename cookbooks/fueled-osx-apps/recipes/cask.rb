@@ -22,11 +22,11 @@ end
 execute 'fix caskroom regression' do
   user 'root'
   group 'wheel'
-  command 'chown -R ' + node['current_user'] +':staff /opt/homebrew-cask/CaskRoom'
+  command 'chown -R $USER /opt/homebrew-cask/CaskRoom'
 end
 
 execute 'fix ~/Applications perms' do
   user 'root'
   group 'wheel'
-  command 'chown -R ' + node['current_user'] +':staff ' + app_dir
+  command 'chown -R $USER ' + app_dir
 end
