@@ -15,7 +15,6 @@ else
   end
 
   execute 'install chruby' do
-    user 'root'
     cwd File.join(Chef::Config[:file_cache_path], "chruby-#{version}")
     command "make install"
   end

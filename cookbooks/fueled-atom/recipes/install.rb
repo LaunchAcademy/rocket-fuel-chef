@@ -37,7 +37,6 @@ else
   end
 
   execute 'install atom binaries/scripts' do
-    user 'root'
     cwd atom_dir
     command "./script/grunt install"
   end

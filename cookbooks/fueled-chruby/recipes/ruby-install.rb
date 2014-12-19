@@ -15,7 +15,6 @@ else
   end
 
   execute 'install ruby-install' do
-    user 'root'
     cwd File.join(Chef::Config[:file_cache_path], "ruby-install-#{version}")
     command "make install"
   end

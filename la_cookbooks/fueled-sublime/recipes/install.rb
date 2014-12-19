@@ -21,7 +21,6 @@ else
   end
 
   execute 'move sublime text 3' do
-    user 'root'
     command "mv #{File.join(Chef::Config[:file_cache_path], 'sublime_text_3')} /opt/"
     only_if { !FileTest.exists?('/opt/sublime_text_3') }
   end

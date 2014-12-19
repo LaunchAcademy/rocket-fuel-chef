@@ -4,12 +4,10 @@ if platform_family?('mac_os_x')
   end
 elsif !platform_family?('windows')
   execute 'link sublime' do
-    user 'root'
     command 'ln -sf /opt/sublime_text_3/sublime_text /usr/bin/sublime'
   end
 
   execute 'link subl' do
-    user 'root'
     command 'ln -sf /opt/sublime_text_3/sublime_text /usr/bin/subl'
   end
 end
