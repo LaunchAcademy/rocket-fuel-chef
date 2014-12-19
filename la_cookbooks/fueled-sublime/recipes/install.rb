@@ -12,7 +12,7 @@ else
   sublime_archive_path = File.join(Chef::Config[:file_cache_path], 'sublime.tar.bz2')
   remote_file sublime_archive_path do
     source 'http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3059_x32.tar.bz2'
-    owner node['current_user']
+    owner ENV['SUDO_USER'] || node['current_user']
   end
 
   execute "extract sublime text 3" do
