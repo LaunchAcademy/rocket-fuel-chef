@@ -39,6 +39,6 @@ template File.join(user_package_prefs, 'Package Control.sublime-settings') do
 end
 
 execute 'ensure ownership of the sublime support root' do
-  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] +':staff "' + support_root + '"'
+  command 'chown -R ' + (ENV['SUDO_USER'] || node['current_user']) +':staff "' + support_root + '"'
   not_if { platform_family?('windows') }
 end
