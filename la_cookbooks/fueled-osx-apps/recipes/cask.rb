@@ -20,10 +20,10 @@ mkdir_p app_dir do
 end
 
 execute 'fix caskroom regression' do
-  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] +
+  command 'chown -R ' + (ENV['SUDO_USER'] || node['current_user']) +
     ' /opt/homebrew-cask/CaskRoom'
 end
 
 execute 'fix ~/Applications perms' do
-  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] + ' ' + app_dir
+  command 'chown -R ' + (ENV['SUDO_USER'] || node['current_user']) + ' ' + app_dir
 end

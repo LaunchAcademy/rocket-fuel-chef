@@ -23,5 +23,5 @@ template File.join(zsh_home, 'custom/.oh-my-zsh.zsh') do
 end
 
 execute 'ensure ownership of ohmyzsh home' do
-  command 'chown -R ' + ENV['SUDO_USER'] || node['current_user'] +':staff "' + zsh_home + '"'
+  command 'chown -R ' + (ENV['SUDO_USER'] || node['current_user']) +':staff "' + zsh_home + '"'
 end
