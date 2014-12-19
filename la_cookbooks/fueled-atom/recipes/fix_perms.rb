@@ -1,7 +1,7 @@
 atom_root = File.join(ENV['HOME'], '.atom')
 
 mkdir_p atom_root do
-  owner env['SUDO_USER'] || node['current_user']
+  owner ENV['SUDO_USER'] || node['current_user']
   action :create
 end
 
