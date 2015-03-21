@@ -1,8 +1,6 @@
 site 'http://community.opscode.com/api/v1'
 
-cookbook 'homebrew',
-  :git => 'https://github.com/dpickett/homebrew',
-  :ref => 'patch-1'
+cookbook 'homebrew'
 
 cookbook 'dmg'
 cookbook 'build-essential'
