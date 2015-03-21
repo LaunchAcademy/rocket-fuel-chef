@@ -21,9 +21,7 @@ end
 
 cask_opts = "--appdir=/Applications"
 
-execute 'set cask opts' do
-  command "export HOMEBREW_CASK_OPTS=\"#{cask_opts}\""
-end
+ENV['HOMEBREW_CASK_OPTS'] = cask_opts
 
 file ::File.join(ENV['HOME'], '.oh-my-zsh/custom/cask.zsh') do
   content 'export HOMEBREW_CASK_OPTS="--appdir=/Applications"'
