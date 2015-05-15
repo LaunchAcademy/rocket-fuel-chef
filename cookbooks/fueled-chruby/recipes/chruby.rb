@@ -1,8 +1,6 @@
 if platform_family?('mac_os_x')
   include_recipe 'homebrew'
-  package 'chruby' do
-    provider Chef::Provider::Package::Homebrew
-  end
+  package 'chruby'
 else
   chruby_path = "#{Chef::Config[:file_cache_path]}/chruby.tar.gz"
   version = '0.3.8'
