@@ -1,6 +1,6 @@
 {
   "name": "homebrew",
-  "version": "1.12.0",
+  "version": "1.10.0",
   "description": "Install Homebrew, and use it as the OS X package provider on Chef versions =< 11",
   "long_description": "",
   "maintainer": "Chef Software, Inc.",
@@ -11,7 +11,6 @@
     "mac_os_x_server": ">= 0.0.0"
   },
   "dependencies": {
-    "build-essential": ">= 2.1.2"
   },
   "recommendations": {
   },

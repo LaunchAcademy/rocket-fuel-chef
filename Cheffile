@@ -1,6 +1,6 @@
 site 'http://community.opscode.com/api/v1'
 
-cookbook 'homebrew', '~> 1.12.0'
+cookbook 'homebrew'
 
 cookbook 'dmg'
 cookbook 'build-essential'

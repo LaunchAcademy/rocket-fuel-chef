@@ -19,10 +19,10 @@
 # limitations under the License.
 #
 
-Chef::Resource.send(:include, Homebrew::Mixin)
-Chef::Recipe.send(:include, Homebrew::Mixin)
+extend(Homebrew::Mixin)
 
 homebrew_go = "#{Chef::Config[:file_cache_path]}/homebrew_go"
+owner = homebrew_owner
 
 Chef::Log.debug("Homebrew owner is '#{homebrew_owner}'")
 
@@ -31,9 +31,8 @@ remote_file homebrew_go do
   mode 00755
 end
 
-execute 'install homebrew' do
-  command homebrew_go
-  user node['homebrew']['owner'] || homebrew_owner
+execute homebrew_go do
+  user owner
   not_if { ::File.exist? '/usr/local/bin/brew' }
 end
 
@@ -43,7 +42,7 @@ if node['homebrew']['auto-update']
   end
 
   execute 'update homebrew from github' do
-    user homebrew_owner
+    user owner
     command '/usr/local/bin/brew update || true'
   end
 end
