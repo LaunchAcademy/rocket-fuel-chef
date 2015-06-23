@@ -2,6 +2,7 @@ include_recipe 'apt'
 include_recipe 'build-essential'
 
 apt_package 'openssl'
+apt_package 'curl'
 
 [
   'ruby',
