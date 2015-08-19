@@ -1,1 +1,1 @@
-homebrew_cask 'github'
+homebrew_cask 'github-desktop'
