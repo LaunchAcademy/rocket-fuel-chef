@@ -17,8 +17,9 @@ apt_package 'curl'
 end
 
 [
-  'ruby1.9.3',
-  'rubygems1.9.1'
+  'ruby',
+  'ruby-dev',
+  'libruby'
 ].each do |r|
   apt_package r
 end
