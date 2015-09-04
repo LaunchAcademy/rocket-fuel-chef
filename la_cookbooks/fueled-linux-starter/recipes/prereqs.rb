@@ -4,17 +4,18 @@ include_recipe 'build-essential'
 apt_package 'openssl'
 apt_package 'curl'
 
-[
-  'ruby',
-  'libruby1.8',
-  'ruby1.8',
-  'ruby1.8-dev',
-  'rubygems1.8'
-].each do |pkg_to_remove|
-  apt_package pkg_to_remove do
-    action :remove
-  end
-end
+# figure out how to not be exceptional about these packages
+# [
+#   'ruby',
+#   'libruby1.8',
+#   'ruby1.8',
+#   'ruby1.8-dev',
+#   'rubygems1.8'
+# ].each do |pkg_to_remove|
+#   apt_package pkg_to_remove do
+#     action :remove
+#   end
+# end
 
 [
   'ruby',
