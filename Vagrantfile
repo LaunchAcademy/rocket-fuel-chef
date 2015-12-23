@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
     }
   end
 
-  config.vm.provision :shell, :inline => "sudo gem install rocket_fuel && sudo -u vagrant rocket_fuel install"
+  # config.vm.provision :shell, :inline => "sudo gem install rocket_fuel && sudo -u vagrant rocket_fuel install"
   #forward default rails port
   config.vm.network :forwarded_port, guest: 3000, host: 3000
 
