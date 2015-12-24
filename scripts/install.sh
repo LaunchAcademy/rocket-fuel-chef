@@ -51,7 +51,7 @@ linux_install(){
   sudo mkdir -p /var/chef
   sudo chown -R $USER /var/chef
 
-  sudo chef-solo -c la_cookbooks/fueled-linux-starter/config.rb -j la_cookbooks/fueled-linux-starter/roles/default.json
+  sudo chef-solo -c cookbooks/fueled-linux-starter/config.rb -j cookbooks/fueled-linux-starter/roles/default.json
 
   sudo gem install rocket_fuel
 
