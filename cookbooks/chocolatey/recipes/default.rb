@@ -4,6 +4,7 @@
 # Author:: Guilhem Lettron <guilhem.lettron@youscribe.com>
 #
 # Copyright 2012, Societe Publica.
+# Copyright 2015, Doug Ireton
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,21 +18,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-return 'platform not supported' if node['platform_family'] != 'windows'
-
-include_recipe 'powershell'
-
-powershell 'install chocolatey' do
-  code "iex ((new-object net.webclient).DownloadString('#{node['chocolatey']['Uri']}'))"
-  not_if { ::File.exist?(::File.join(node['chocolatey']['bin_path'], 'chocolatey.bat')) }
+unless node['platform_family'] == 'windows'
+  return "Chocolatey install not supported on #{node['platform_family']}"
 end
 
-file 'cygwin log' do
-  path 'C:/cygwin/var/log/setup.log'
-  action :delete
+Chef::Resource.send(:include, Chocolatey::Helpers)
+
+install_ps1 = File.join(Chef::Config['file_cache_path'], 'install.ps1')
+
+remote_file install_ps1 do
+  source node['chocolatey']['url']
+  backup false
+  notifies :run, 'powershell_script[Install Chocolatey]', :immediately
+  not_if { chocolatey_installed? && (node['chocolatey']['upgrade'] == false) }
 end
 
-chocolatey 'chocolatey' do
-  action :upgrade if node['chocolatey']['upgrade']
+powershell_script 'Install Chocolatey' do
+  action :nothing
+  environment node['chocolatey']['install_vars']
+  cwd Chef::Config['file_cache_path']
+  code install_ps1
 end

@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+# Prepending with '::' to prevent breaks in older versions of chef
+include ::Chocolatey::Helpers
+
 use_inline_resources
 
 # Support whyrun
@@ -24,31 +27,41 @@ def whyrun_supported?
   true
 end
 
-def load_current_resource
+def load_current_resource # rubocop:disable Metrics/AbcSize
   @current_resource = Chef::Resource::Chocolatey.new(@new_resource.name)
   @current_resource.name(@new_resource.name)
   @current_resource.version(@new_resource.version)
   @current_resource.source(@new_resource.source)
   @current_resource.args(@new_resource.args)
+  @current_resource.options(@new_resource.options)
   @current_resource.package(@new_resource.package)
-  @current_resource.exists = true if package_exists?(@current_resource.package, @current_resource.version)
-  @current_resource.upgradeable = true if upgradeable?(@current_resource.package)
-#  @current_resource.installed = true if package_installed?(@current_resource.package)
+  @current_resource.exists = package_exists?(@current_resource.package, @current_resource.version)
+  #  @current_resource.installed = true if package_installed?(@current_resource.package)
 end
 
 action :install do
   if @current_resource.exists
-    Chef::Log.info "#{ @current_resource.package } already installed - nothing to do."
-  elsif @current_resource.version
-    install_version(@current_resource.package, @current_resource.version)
+    Chef::Log.info "#{@current_resource.package} already installed - nothing to do."
   else
-    install(@current_resource.package)
+    if @current_resource.version
+      install_version(@current_resource.package, @current_resource.version)
+    else
+      install(@current_resource.package)
+    end
+    adjust_path(@current_resource.package)
+  end
+end
+
+def adjust_path(name)
+  ruby_block "track-path-#{name}" do
+    block { ENV['PATH'] = env_path(ENV['PATH']) }
   end
 end
 
 action :upgrade do
-  if @current_resource.upgradeable
-    upgrade(@current_resource.package)
+  package_name = @current_resource.package
+  if upgradeable?(package_name)
+    upgrade(package_name)
   else
     Chef::Log.info("Package #{@current_resource} already to latest version")
   end
@@ -56,13 +69,14 @@ end
 
 action :remove do
   if @current_resource.exists
-    converge_by("uninstall package #{ @current_resource.package }") do
-      execute "uninstall package #{@current_resource.package}" do
-        command "#{::File.join(node['chocolatey']['bin_path'], "chocolatey.bat")} uninstall  #{@new_resource.package} #{cmd_args}"
+    package_name = @current_resource.package
+    converge_by("uninstall package #{package_name}") do
+      execute "uninstall package #{package_name}" do
+        command "#{chocolatey_executable} uninstall -y #{package_name}"
       end
     end
   else
-    Chef::Log.info "#{ @new_resource } not installed - nothing to do."
+    Chef::Log.info "#{@current_resource} not installed - nothing to do."
   end
 end
 
@@ -70,75 +84,63 @@ def cmd_args
   output = ''
   output += " -source #{@current_resource.source}" if @current_resource.source
   output += " -ia '#{@current_resource.args}'" unless @current_resource.args.to_s.empty?
+  @current_resource.options.each do |k, v|
+    output += " -#{k}"
+    output += " #{v}" if v
+  end
   output
 end
 
 def package_installed?(name)
-  cmd = Mixlib::ShellOut.new("#{::File.join(node['chocolatey']['bin_path'], "chocolatey.bat")} version #{name} -localonly #{cmd_args}")
+  package_exists?(name, nil)
+end
+
+def package_exists?(name, version) # rubocop:disable Metrics/AbcSize
+  cmd = Mixlib::ShellOut.new("#{chocolatey_executable} list -l -r #{name}")
   cmd.run_command
-  if cmd.stdout.include?('no version')
-    return false
-  else
-    return true
+  software = cmd.stdout.split("\r\n").each_with_object({}) do |s, h|
+    v, k = s.split('|')
+    h[String(v).strip.downcase] = String(k).strip.downcase
+    h
   end
-#  software = cmd.stdout.split("\r\n").inject({}) {|h,s| v,k = s.split(":"); h[String(v).strip]=String(k).strip; h}
-end
 
-def package_exists?(name, version)
-  if package_installed?(name)
-    if version
-      cmd = Mixlib::ShellOut.new("#{::File.join(node['chocolatey']['bin_path'], "chocolatey.bat")} version #{name} -localonly #{cmd_args}")
-      cmd.run_command
-      software = cmd.stdout.split("\r\n").reduce({}) do |h, s|
-        v, k = s.split
-        h[String(v).strip] = String(k).strip
-        h
-      end
-      if software[name] == version
-        return true
-      else
-        return false
-      end
-    else
-      return true
-    end
+  if version
+    software[name.downcase] == version.downcase
   else
-    return false
+    !software[name.downcase].nil?
   end
 end
 
-def upgradeable?(name)
-  if @current_resource.exists
-    return false
-  elsif package_installed?(name)
-    Chef::Log.debug("Checking to see if this chocolatey package exists: '#{name}' '#{version}'")
-    cmd = Mixlib::ShellOut.new("#{::File.join(node['chocolatey']['bin_path'], "chocolatey.bat")} version #{name} #{cmd_args}")
-    cmd.run_command
-    if cmd.stdout.include?('Latest version installed')
-      return false
-    else
-      return true
-    end
-  else
+def upgradeable?(name) # rubocop:disable Metrics/AbcSize
+  return false unless @current_resource.exists
+  unless package_installed?(name)
     Chef::Log.debug("Package isn't installed... we can upgrade it!")
     return true
   end
+
+  Chef::Log.debug("Checking to see if this chocolatey package is installed/upgradable: '#{name}'")
+  cmd = Mixlib::ShellOut.new("#{chocolatey_executable} upgrade -r --noop #{cmd_args} #{name}")
+  cmd.run_command
+  result = cmd.stdout.chomp
+  package_name, current_version, updated_version, is_pinned = result.downcase.split('|')
+  raise "Wrong package name #{name} != #{package_name}" if package_name != name
+  current_version != updated_version && is_pinned != 'true'
 end
 
 def install(name)
   execute "install package #{name}" do
-    command "#{::File.join(node['chocolatey']['bin_path'], "chocolatey.bat")} install #{name} #{cmd_args}"
+    command "#{chocolatey_executable} install -y #{cmd_args} #{name}"
   end
 end
 
 def upgrade(name)
   execute "updating #{name} to latest" do
-    command "#{::File.join(node['chocolatey']['bin_path'], "chocolatey.bat")} update #{name} #{cmd_args}"
+    command "#{chocolatey_executable} upgrade -y #{cmd_args} #{name}"
   end
 end
 
 def install_version(name, version)
-  execute "install package #{name} to version #{version}" do
-    command "#{::File.join(node['chocolatey']['bin_path'], "chocolatey.bat")} install #{name} -version #{version} #{cmd_args}"
+  execute "install package #{name} version #{version}" do
+    command "#{chocolatey_executable} install -y -version  #{version} #{cmd_args} #{name}"
   end
 end

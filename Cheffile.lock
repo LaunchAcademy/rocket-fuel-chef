@@ -1,50 +1,36 @@
 SITE
   remote: http://community.opscode.com/api/v1
   specs:
-    7-zip (1.0.2)
-      windows (>= 1.2.2)
-    apt (2.6.0)
-    ark (0.9.0)
-      7-zip (>= 0.0.0)
+    apt (2.9.2)
+    ark (1.0.0)
+      build-essential (>= 0.0.0)
+      seven_zip (>= 0.0.0)
       windows (>= 0.0.0)
-    build-essential (2.0.6)
-    chef_handler (1.1.6)
-    chocolatey (0.1.0)
-      powershell (>= 0.0.0)
-    dmg (2.2.0)
-    git (4.0.2)
+    build-essential (2.2.4)
+    chef_handler (1.2.0)
+    chocolatey (0.6.2)
+      windows (~> 1.38)
+    dmg (2.3.0)
+    git (4.3.7)
       build-essential (>= 0.0.0)
       dmg (>= 0.0.0)
-      runit (>= 1.0.0)
       windows (>= 0.0.0)
-      yum (~> 3.0)
       yum-epel (>= 0.0.0)
-    homebrew (1.10.0)
-    ms_dotnet2 (1.0.0)
-      windows (>= 0.0.0)
-    ms_dotnet4 (1.0.2)
-      windows (>= 0.0.0)
-    ms_dotnet45 (1.1.2)
-      windows (>= 0.0.0)
-    nodejs (2.1.0)
+    homebrew (2.0.5)
+      build-essential (>= 2.1.2)
+    nodejs (2.4.4)
       apt (>= 0.0.0)
       ark (>= 0.0.0)
       build-essential (>= 0.0.0)
+      homebrew (>= 0.0.0)
       yum-epel (>= 0.0.0)
-    powershell (3.0.7)
-      ms_dotnet2 (>= 0.0.0)
-      ms_dotnet4 (>= 0.0.0)
-      ms_dotnet45 (>= 0.0.0)
-      windows (>= 1.2.8)
-    runit (1.5.10)
-      build-essential (>= 0.0.0)
-      yum (~> 3.0)
-      yum-epel (>= 0.0.0)
-    windows (1.34.2)
+    seven_zip (1.0.4)
+      windows (>= 1.2.2)
+    windows (1.39.1)
       chef_handler (>= 0.0.0)
-    yum (3.3.1)
-    yum-epel (0.5.1)
-      yum (~> 3.0)
+    yum (3.10.0)
+    yum-epel (0.6.5)
+      yum (~> 3.2)
 
 PATH
   remote: la_cookbooks/fueled-atom
@@ -54,6 +40,7 @@ PATH
       fueled-linux-apps (>= 0.0.0)
       fueled-linux-starter (>= 0.0.0)
       fueled-osx-apps (>= 0.0.0)
+      fueled-windows-apps (>= 0.0.0)
       homebrew (>= 0.0.0)
 
 PATH
@@ -92,6 +79,7 @@ PATH
       fueled-chruby (>= 0.0.0)
       fueled-core (>= 0.0.0)
       fueled-linux-apps (>= 0.0.0)
+      fueled-linux-starter (>= 0.0.0)
       fueled-ssh (>= 0.0.0)
       fueled-sublime (>= 0.0.0)
       fueled-zsh (>= 0.0.0)
@@ -118,6 +106,7 @@ PATH
   specs:
     fueled-osx-station (0.1.0)
       dmg (>= 0.0.0)
+      fueled-atom (>= 0.0.0)
       fueled-chruby (>= 0.0.0)
       fueled-core (>= 0.0.0)
       fueled-osx-apps (>= 0.0.0)
@@ -140,19 +129,26 @@ PATH
     fueled-sublime (0.1.0)
       dmg (>= 0.0.0)
       fueled-core (>= 0.0.0)
+      fueled-windows-apps (>= 0.0.0)
       fueled-zsh (>= 0.0.0)
 
 PATH
   remote: la_cookbooks/fueled-windows-apps
   specs:
     fueled-windows-apps (0.1.0)
+      build-essential (>= 0.0.0)
+      chocolatey (>= 0.0.0)
       fueled-core (>= 0.0.0)
+      windows (>= 0.0.0)
 
 PATH
   remote: la_cookbooks/fueled-windows-station
   specs:
     fueled-windows-station (0.1.0)
+      fueled-atom (>= 0.0.0)
+      fueled-chruby (>= 0.0.0)
       fueled-core (>= 0.0.0)
+      fueled-sublime (>= 0.0.0)
       fueled-windows-apps (>= 0.0.0)
 
 PATH

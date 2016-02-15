@@ -1,9 +1,10 @@
 # [nodejs-cookbook](https://github.com/redguide/nodejs)
 [![CK Version](http://img.shields.io/cookbook/v/nodejs.svg)](https://supermarket.getchef.com/cookbooks/nodejs) [![Build Status](https://img.shields.io/travis/redguide/nodejs.svg)](https://travis-ci.org/redguide/nodejs)
+[![Gitter chat](https://badges.gitter.im/redguide/nodejs.png)](https://gitter.im/redguide/nodejs)
 
 ## DESCRIPTION
 
-Installs Node.js and manage npm
+Installs node.js/io.js and manage npm
 
 ## USAGE
 
@@ -11,7 +12,16 @@ Include the nodejs recipe to install node on your system based on the default in
 ```chef
 include_recipe "nodejs"
 ```
-Installation method can be customized with attribute `node['nodejs']['install_method']`
+
+### Engine
+
+You can select different engine by setting `node['nodejs']['engine']`
+```
+node['nodejs']['engine'] => 'node' # default
+node['nodejs']['engine'] => 'iojs'
+```
+
+You can also use recipes `nodejs::nodejs` or `nodejs::iojs`.
 
 ### Install methods
 
@@ -74,13 +84,68 @@ _Warning:_ This recipe will include the `nodejs` recipe, which by default includ
  
 Packages can be installed globally (by default) or in a directory (by using `attribute :path`)
 
+You can specify an `NPM_TOKEN` environment variable for accessing [NPM private modules](https://docs.npmjs.com/private-modules/intro) by using `attribute :npm_token`
+
 You can append more specific options to npm command with `attribute :options` array :  
  * use an array of options (w/ dash), they will be added to npm call.
  * ex: `['--production','--force']` or `['--force-latest']`
  
-This LWRP try to use npm bare as much as possible (no custom wrapper).
+This LWRP attempts to use vanilla npm as much as possible (no custom wrapper).
 
-#### [Examples](test/cookbooks/nodejs_test/recipes/npm.rb)
+### Packages
+
+```ruby
+nodejs_npm "express"
+
+nodejs_npm "async" do
+  version "0.6.2"
+end
+
+nodejs_npm "request" do
+  url "github mikeal/request"
+end
+
+nodejs_npm "grunt" do
+  path "/home/random/grunt"
+  json true
+  user "random"
+end
+
+nodejs_npm "my_private_module" do
+  path "/home/random/myproject" # The root path to your project, containing a package.json file
+  json true
+  npm_token "12345-abcde-e5d4c3b2a1"
+  user "random"
+  options ['--production'] # Only install dependencies. Skip devDependencies
+end
+```
+[Working Examples](test/cookbooks/nodejs_test/recipes/npm.rb)
+
+Or add packages via attributes (which accept the same attributes as the LWRP above):
+
+```json
+"nodejs": {
+  "npm_packages": [
+    {
+      "name": "express"
+    },
+    {
+      "name": "async",
+      "version": "0.6.2"
+    },
+    {
+      "name": "request",
+      "url": "github mikeal/request"
+    }
+    {
+      "name": "grunt",
+      "path": "/home/random/grunt",
+      "json": true,
+      "user": "random"
+    }
+  ]
+}
+```
 
 ## AUTHORS
 

@@ -1,10 +1,10 @@
 #
-# Author:: Joshua Timberman (<jtimberman@opscode.com>)
+# Author:: Joshua Timberman (<jtimberman@chef.io>)
 # Author:: Graeme Mathieson (<mathie@woss.name>)
 # Cookbook Name:: homebrew
-# Recipes:: default
+# Recipe:: default
 #
-# Copyright 2011-2013, Opscode, Inc.
+# Copyright 2011-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 # limitations under the License.
 #
 
-extend(Homebrew::Mixin)
+Chef::Resource.send(:include, Homebrew::Mixin)
+Chef::Recipe.send(:include, Homebrew::Mixin)
 
 homebrew_go = "#{Chef::Config[:file_cache_path]}/homebrew_go"
-owner = homebrew_owner
 
 Chef::Log.debug("Homebrew owner is '#{homebrew_owner}'")
 
@@ -31,8 +31,10 @@ remote_file homebrew_go do
   mode 00755
 end
 
-execute homebrew_go do
-  user owner
+execute 'install homebrew' do
+  command homebrew_go
+  environment lazy { { 'HOME' => ::Dir.home(homebrew_owner), 'USER' => homebrew_owner } }
+  user homebrew_owner
   not_if { ::File.exist? '/usr/local/bin/brew' }
 end
 
@@ -42,7 +44,8 @@ if node['homebrew']['auto-update']
   end
 
   execute 'update homebrew from github' do
-    user owner
+    environment lazy { { 'HOME' => ::Dir.home(homebrew_owner), 'USER' => homebrew_owner } }
+    user homebrew_owner
     command '/usr/local/bin/brew update || true'
   end
 end

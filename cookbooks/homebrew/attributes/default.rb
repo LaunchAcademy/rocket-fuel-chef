@@ -1,10 +1,10 @@
 #
-# Author:: Joshua Timberman (<jtimberman@opscode.com>)
+# Author:: Joshua Timberman (<jtimberman@chef.io>)
 # Author:: Graeme Mathieson (<mathie@woss.name>)
 # Cookbook Name:: homebrew
 # Attributes:: default
 #
-# Copyright 2011-2013, Opscode, Inc.
+# Copyright 2011-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,3 +23,4 @@ default['homebrew']['owner'] = nil
 default['homebrew']['auto-update'] = true
 default['homebrew']['casks'] = []
 default['homebrew']['formulas'] = node['homebrew']['formula'] || []
+default['homebrew']['taps'] = []

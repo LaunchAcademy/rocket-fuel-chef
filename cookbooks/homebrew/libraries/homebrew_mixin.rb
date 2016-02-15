@@ -1,10 +1,10 @@
 #
-# Author:: Joshua Timberman (<jtimberman@opscode.com>)
+# Author:: Joshua Timberman (<jtimberman@chef.io>)
 # Author:: Graeme Mathieson (<mathie@woss.name>)
 # Cookbook Name:: homebrew
 # Libraries:: homebrew_mixin
 #
-# Copyright 2011-2013, Opscode, Inc.
+# Copyright 2011-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,16 +20,21 @@
 #
 # Include the mixin from Chef 12 if its defined, when we get to the
 # #homebrew_owner method below...
-class Chef12HomebrewOwner
-  include Chef::Mixin::HomebrewOwner if defined?(Chef::Mixin::HomebrewOwner)
+class Chef12HomebrewUser
+  include Chef::Mixin::HomebrewUser if defined?(Chef::Mixin::HomebrewUser)
 end
 
 module Homebrew
   # Homebrew
   module Mixin
     def homebrew_owner
-      if defined?(Chef::Mixin::HomebrewOwner)
-        @homebrew_owner ||= Chef12HomebrewOwner.new.homebrew_owner(node)
+      if defined?(Chef::Mixin::HomebrewUser)
+        begin
+          require 'etc'
+          @homebrew_owner ||= ::Etc.getpwuid(Chef12HomebrewUser.new.find_homebrew_uid).name
+        rescue Chef::Exceptions::CannotDetermineHomebrewOwner
+          @homebrew_owner ||= calculate_owner
+        end
       else
         @homebrew_owner ||= calculate_owner
       end
@@ -41,7 +46,7 @@ module Homebrew
       owner = homebrew_owner_attr || sudo_user || current_user
       if owner == 'root'
         fail Chef::Exceptions::User,
-             "Homebrew owner is 'root' which is not supported. " +
+             "Homebrew owner is 'root' which is not supported. " \
              "To set an explicit owner, please set node['homebrew']['owner']."
       end
       owner

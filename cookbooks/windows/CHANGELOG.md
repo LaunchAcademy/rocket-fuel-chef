@@ -2,13 +2,117 @@ windows Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the windows cookbook.
 
+v1.39.1
+--------------------
+- [PR 325](https://github.com/chef-cookbooks/windows/pull/325) - Raise an error if a bogus feature is given to the powershell `windows_feature` provider
+- [PR 326](https://github.com/chef-cookbooks/windows/pull/326) - Fix `windows_font` and copy the font file before installation
+
+v1.39.0
+--------------------
+- [PR 305](https://github.com/chef-cookbooks/windows/pull/305) - Added `months` attribute to `windows_task` and allow `frequency_modifier` to accept values 'FIRST', 'SECOND', 'THIRD', 'FOURTH', 'LAST', and 'LASTDAY' for monthly frequency
+- [PR 310](https://github.com/chef-cookbooks/windows/pull/310) - Fix `windows_task` breaks when there is a space in the user name
+- [PR 314](https://github.com/chef-cookbooks/windows/pull/314) - fixes reboot handling on some chef versions below 11.12
+- [PR 317](https://github.com/chef-cookbooks/windows/pull/317) - Adds a `disable_windows_task` matcher
+- [PR 311](https://github.com/chef-cookbooks/windows/pull/311) - Implements the `cwd` attribute of `windows_task`
+- [PR 318](https://github.com/chef-cookbooks/windows/pull/318) - Use dsl instead of manual resource instanciation
+- [PR 303](https://github.com/chef-cookbooks/windows/pull/303) - Fix `http_acl` idempotency when user name contains a space
+- [PR 257](https://github.com/chef-cookbooks/windows/pull/257) - Speed up windows_feature dism provider
+- [PR 319](https://github.com/chef-cookbooks/windows/pull/319) - Add a `.kitchen.cloud.yml` for kitchen testing on Azure
+- [PR 315](https://github.com/chef-cookbooks/windows/pull/315) - Deprecate `windows_package` and forward to `Chef::Provider::Package::Windows` when running 12.6 or higher
+
+v1.38.4
+--------------------
+- [PR 295](https://github.com/chef-cookbooks/windows/pull/295) - Escape `http_acl` username
+- [PR 293](https://github.com/chef-cookbooks/windows/pull/293) - Separating assignments to `code_script` and `guard_script` as they should be different scripts and not hold the same reference
+- [Issue 298](https://github.com/chef-cookbooks/windows/issues/298) - `windows_certificate_binding` is ignoring `store_name` attribute and always saving to `MY`
+- [Issue 296](https://github.com/chef-cookbooks/windows/pull/302) - Fixes `windows_certificate` idempotentcy on chef 11 clients
+
+v1.38.3
+--------------------
+- Make `windows_task` resource idempotent (double quotes need to be single when comparing)
+- [Issue 245](https://github.com/chef-cookbooks/windows/issues/256) - Fix `No resource, method, or local variable named `password' for `Chef::Provider::WindowsTask'` when `interactive_enabled` is `true`
+
+v1.38.2
+--------------------
+- Lazy-load windows-pr gem library files. Chef 12.5 no longer includes the windows-pr gem. Earlier versions of this cookbook will not compile on Chef 12.5.
+
+v1.38.1 (2015-07-28)
+--------------------
+- Publishing without extended metadata
+
+v1.38.0 (2015-07-27)
+--------------------
+- Do not set new_resource.password to nil, Fixes #219, Fixes #220
+- Add `windows_certificate` resource #212
+- Add `windows_http_acl` resource #214
+
+v1.37.0 (2015-05-14)
+--------------------
+- fix `windows_package` `Chef.set_resource_priority_array` warning
+- update `windows_task` to support tasks in folders
+- fix `windows_task` delete action
+- replace `windows_task` name attribute with 'task_name'
+- add :end action to 'windows_task'
+- Tasks created with the `windows_task` resource default to the SYSTEM account
+- The force attribute for `windows_task` makes the :create action update the definition.
+- `windows_task` :create action will force an update of the task if the user or command differs from the currently configured setting.
+- add default provider for `windows_feature`
+- add a helper to make sure `WindowsRebootHandler` works in ChefSpec
+- added a source and issues url to the metadata for Supermarket
+- updated the Gemfile and .kitchen.yml to reflect the latest test-kitchen windows guest support
+- started tests using the kitchen-pester verifier
+
+v1.36.6 (2014-12-18)
+--------------------
+- reverting all chef_gem compile_time work
+
+v1.36.5 (2014-12-18)
+--------------------
+- Fix zipfile provider
+
+v1.36.4 (2014-12-18)
+--------------------
+- Fix Chef chef_gem with Chef::Resource::ChefGem.method_defined?(:compile_time)
+
+v1.36.3 (2014-12-18)
+--------------------
+- Fix Chef chef_gem below 12.1.0
+
+v1.36.2 (2014-12-17)
+--------------------
+- Being explicit about usage of the chef_gem's compile_time property.
+- Eliminating future deprecation warnings in Chef 12.1.0
+
+v1.36.1 (2014-12-17)
+--------------------
+- [PR 160](https://github.com/chef-cookbooks/windows/pull/160) - Fix Chef 11.10 / versions without windows_package in core
+
+v1.36.0 (2014-12-16)
+--------------------
+- [PR 145](https://github.com/chef-cookbooks/windows/pull/145) - do not fail on non-existant task
+- [PR 144](https://github.com/chef-cookbooks/windows/pull/144) - Add a zip example to the README
+- [PR 110](https://github.com/chef-cookbooks/windows/pull/110) - More zip documentation
+- [PR 148](https://github.com/chef-cookbooks/windows/pull/148) - Add an LWRP for font installation
+- [PR 151](https://github.com/chef-cookbooks/windows/pull/151) - Fix windows_package on Chef 12, add integration tests
+- [PR 129](https://github.com/chef-cookbooks/windows/pull/129) - Add enable/disable actions to task LWRP
+- [PR 115](https://github.com/chef-cookbooks/windows/pull/115) - require Chef::Mixin::PowershellOut before using it
+- [PR 88](https://github.com/chef-cookbooks/windows/pull/88) - Code 1003 from servermanagercmd.exe is valid
+
+v1.34.8 (2014-10-31)
+--------------------
+- [Issue 137](https://github.com/chef-cookbooks/windows/issues/137) - windows_path resource breaks with ruby 2.x
+
+v1.34.6 (2014-09-22)
+--------------------
+- [Chef-2009](https://github.com/chef/chef/issues/2009) - Patch to work around a regression in [Chef](https://github.com/chef/chef)
+
 v1.34.2 (2014-08-12)
 --------------------
-- [Issue 99](https://github.com/opscode-cookbooks/windows/issues/99) - Remove rubygems / Internet wmi-lite dependency (PR #108)
+- [Issue 99](https://github.com/chef-cookbooks/windows/issues/99) - Remove rubygems / Internet wmi-lite dependency (PR #108)
 
 v1.34.0 (2014-08-04)
 --------------------
-- [Issue 99](https://github.com/opscode-cookbooks/windows/issues/99) - Use wmi-lite to fix Chef 11.14.2 break in rdp-ruby-wmi dependency
+- [Issue 99](https://github.com/chef-cookbooks/windows/issues/99) - Use wmi-lite to fix Chef 11.14.2 break in rdp-ruby-wmi dependency
 
 v1.32.1 (2014-07-15)
 --------------------
@@ -50,33 +154,33 @@ Fixing depend/depends typo in metadata.rb
 v1.12.2
 -------
 ### Bug
-- **[COOK-4110](https://tickets.opscode.com/browse/COOK-4110)** - feature_servermanager installed? method regex bug
+- **[COOK-4110](https://tickets.chef.io/browse/COOK-4110)** - feature_servermanager installed? method regex bug
 
 
 v1.12.0
 -------
 ### Bug
-- **[COOK-3793](https://tickets.opscode.com/browse/COOK-3793)** - parens inside parens of README.md don't render
+- **[COOK-3793](https://tickets.chef.io/browse/COOK-3793)** - parens inside parens of README.md don't render
 
 ### New Feature
-- **[COOK-3714](https://tickets.opscode.com/browse/COOK-3714)** - Powershell features provider and delete support.
+- **[COOK-3714](https://tickets.chef.io/browse/COOK-3714)** - Powershell features provider and delete support.
 
 
 v1.11.0
 -------
 ### Improvement
-- **[COOK-3724](https://tickets.opscode.com/browse/COOK-3724)** - Rrecommend built-in resources over cookbook resources
-- **[COOK-3515](https://tickets.opscode.com/browse/COOK-3515)** - Remove unprofessional comment from library
-- **[COOK-3455](https://tickets.opscode.com/browse/COOK-3455)** - Add Windows Server 2012R2 to windows cookbook version helper
+- **[COOK-3724](https://tickets.chef.io/browse/COOK-3724)** - Rrecommend built-in resources over cookbook resources
+- **[COOK-3515](https://tickets.chef.io/browse/COOK-3515)** - Remove unprofessional comment from library
+- **[COOK-3455](https://tickets.chef.io/browse/COOK-3455)** - Add Windows Server 2012R2 to windows cookbook version helper
 
 ### Bug
-- **[COOK-3542](https://tickets.opscode.com/browse/COOK-3542)** - Fix an issue where `windows_zipfile` fails with LoadError
-- **[COOK-3447](https://tickets.opscode.com/browse/COOK-3447)** - Allow Overriding Of The Default Reboot Timeout In windows_reboot_handler
-- **[COOK-3382](https://tickets.opscode.com/browse/COOK-3382)** - Allow windows_task to create `on_logon` tasks
-- **[COOK-2098](https://tickets.opscode.com/browse/COOK-2098)** - Fix and issue where the `windows_reboot` handler is ignoring the reboot time
+- **[COOK-3542](https://tickets.chef.io/browse/COOK-3542)** - Fix an issue where `windows_zipfile` fails with LoadError
+- **[COOK-3447](https://tickets.chef.io/browse/COOK-3447)** - Allow Overriding Of The Default Reboot Timeout In windows_reboot_handler
+- **[COOK-3382](https://tickets.chef.io/browse/COOK-3382)** - Allow windows_task to create `on_logon` tasks
+- **[COOK-2098](https://tickets.chef.io/browse/COOK-2098)** - Fix and issue where the `windows_reboot` handler is ignoring the reboot time
 
 ### New Feature
-- **[COOK-3458](https://tickets.opscode.com/browse/COOK-3458)** - Add support for `start_date` and `start_time` in `windows_task`
+- **[COOK-3458](https://tickets.chef.io/browse/COOK-3458)** - Add support for `start_date` and `start_time` in `windows_task`
 
 
 v1.10.0

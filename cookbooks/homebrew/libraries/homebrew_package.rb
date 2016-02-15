@@ -1,10 +1,10 @@
 #
-# Author:: Joshua Timberman (<jtimberman@opscode.com>)
+# Author:: Joshua Timberman (<jtimberman@chef.io>)
 # Author:: Graeme Mathieson (<mathie@woss.name>)
 # Cookbook Name:: homebrew
 # Libraries:: homebrew_package
 #
-# Copyright 2011-2013, Opscode, Inc.
+# Copyright 2011-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
 # present on a node. This approach should avoid creating this class if
 # the node already has Chef::Provider::Package::Homebrew, such as with
 # Chef 12.
-# https://github.com/opscode/chef-rfc/blob/master/rfc016-homebrew-osx-package-provider.md
+# https://github.com/chef/chef-rfc/blob/master/rfc016-homebrew-osx-package-provider.md
 unless defined?(Chef::Provider::Package::Homebrew) && Chef::Platform.find('mac_os_x', nil)[:package] == Chef::Provider::Package::Homebrew
   require 'chef/provider/package'
   require 'chef/resource/package'
@@ -46,15 +46,15 @@ unless defined?(Chef::Provider::Package::Homebrew) && Chef::Platform.find('mac_o
             @current_resource
           end
 
-          def install_package(name, version)
+          def install_package(name, _version)
             brew('install', @new_resource.options, name)
           end
 
-          def upgrade_package(name, version)
+          def upgrade_package(name, _version)
             brew('upgrade', name)
           end
 
-          def remove_package(name, version)
+          def remove_package(name, _version)
             brew('uninstall', @new_resource.options, name)
           end
 
@@ -71,30 +71,17 @@ unless defined?(Chef::Provider::Package::Homebrew) && Chef::Platform.find('mac_o
           end
 
           def current_installed_version
-            pkg = get_version_from_formula
-            versions = pkg.to_hash['installed'].map { |v| v['version'] }
+            versions = package_info['installed'].map { |v| v['version'] }
             versions.join(' ') unless versions.empty?
           end
 
           def candidate_version
-            pkg = get_version_from_formula
-            pkg.stable ? pkg.stable.version.to_s : pkg.version.to_s
+            package_info['versions']['stable'] ? package_info['versions']['stable'].to_s : package_info['versions'].find { |_k, v| v if v.is_a?(String) }
           end
 
-          def get_version_from_command(command)
-            version = get_response_from_command(command).chomp
-            version.empty? ? nil : version
-          end
-
-          def get_version_from_formula
-            brew_cmd = shell_out!('brew --prefix', :user => homebrew_owner)
-            libpath = ::File.join(brew_cmd.stdout.chomp, 'Library', 'Homebrew')
-            $LOAD_PATH.unshift(libpath)
-
-            require 'global'
-            require 'cmd/info'
-
-            Formula[new_resource.package_name]
+          def package_info
+            require 'json'
+            JSON.parse(brew('info', @new_resource.package_name, '--json=v1'))[0]
           end
 
           def get_response_from_command(command)
@@ -102,7 +89,7 @@ unless defined?(Chef::Provider::Package::Homebrew) && Chef::Platform.find('mac_o
             home_dir = Etc.getpwnam(homebrew_owner).dir
 
             Chef::Log.debug "Executing '#{command}' as #{homebrew_owner}"
-            output = shell_out!(command, :user => homebrew_owner, :environment => { 'HOME' => home_dir, 'RUBYOPT' => nil })
+            output = shell_out!(command, user: homebrew_owner, environment: { 'USER' => homebrew_owner, 'HOME' => home_dir, 'RUBYOPT' => nil })
             output.stdout
           end
         end
@@ -110,6 +97,6 @@ unless defined?(Chef::Provider::Package::Homebrew) && Chef::Platform.find('mac_o
     end
   end
 
-  Chef::Platform.set :platform => :mac_os_x_server, :resource => :package, :provider => Chef::Provider::Package::Homebrew
-  Chef::Platform.set :platform => :mac_os_x, :resource => :package, :provider => Chef::Provider::Package::Homebrew
+  Chef::Platform.set platform: :mac_os_x_server, resource: :package, provider: Chef::Provider::Package::Homebrew
+  Chef::Platform.set platform: :mac_os_x, resource: :package, provider: Chef::Provider::Package::Homebrew
 end
