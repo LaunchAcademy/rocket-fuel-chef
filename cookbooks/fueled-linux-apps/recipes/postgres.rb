@@ -7,6 +7,7 @@ end
 
 package 'postgresql-9.4'
 package 'postgresql-contrib-9.4'
+package 'libpq-dev'
 
  # create new postgres user
 execute "create new postgres user" do
