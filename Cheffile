@@ -6,7 +6,7 @@ cookbook 'dmg'
 cookbook 'build-essential'
 cookbook 'apt'
 cookbook 'git'
-cookbook 'nodejs'
+cookbook 'nvm'
 cookbook 'chocolatey'
 
 [

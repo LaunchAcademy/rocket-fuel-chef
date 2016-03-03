@@ -1,0 +1,50 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: 11.6.0
+  customize:
+    memory: 1024
+
+platforms:
+- name: ubuntu-12.04
+  driver_config:
+    box: opscode-ubuntu-12.04-nochef
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
+    network:
+      - ["private_network", {ip: "11.12.14.11"}]
+  run_list:
+  - recipe[apt]
+- name: centos-6.5
+  driver_config:
+    box: opscode_centos-6.5_chef
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box
+    network:
+      - ["private_network", {ip: "11.12.14.12"}]
+
+suites:
+- name: default
+  run_list:
+    - recipe[nvm_test::default]
+    - recipe[minitest-handler]
+  excludes:
+    - centos-6.5
+
+- name: nvm-install-global
+  run_list:
+    - recipe[nvm_test::nvm_install_global]
+    - recipe[minitest-handler]
+
+- name: nvm-alias-default
+  run_list:
+    - recipe[nvm_test::nvm_alias_default]
+    - recipe[minitest-handler]
+
+- name: nvm-install-from-source
+  run_list:
+    - recipe[nvm_test::nvm_install_from_source]
+    - recipe[minitest-handler]
+
+- name: nvm-install-user
+  run_list:
+    - recipe[nvm_test::nvm_install_user]
+    - recipe[minitest-handler]

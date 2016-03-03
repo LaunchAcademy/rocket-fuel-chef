@@ -27,6 +27,9 @@ SITE
       build-essential (>= 0.0.0)
       homebrew (>= 0.0.0)
       yum-epel (>= 0.0.0)
+    nvm (0.1.7)
+      build-essential (>= 0.0.0)
+      git (>= 0.0.0)
     seven_zip (2.0.0)
       windows (>= 1.2.2)
     windows (1.39.2)
@@ -180,5 +183,5 @@ DEPENDENCIES
   fueled-zsh (>= 0)
   git (>= 0)
   homebrew (>= 0)
-  nodejs (>= 0)
+  nvm (>= 0)
 
