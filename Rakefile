@@ -59,3 +59,13 @@ namespace :win do
     `tar -pczf #{tar_path} cookbooks`
   end
 end
+
+namespace :vagrant do
+  desc 'package the virtual box'
+  task :package do
+    require File.join(File.join(File.dirname(__FILE__),
+      'rocket_fuel', 'vagrant', 'version'))
+
+    `vagrant package --vagrantfile Vagrantfile.dist --output rocket-fueled-lts-#{RocketFuel::Vagrant::VERSION}.box`
+  end
+end

@@ -5,12 +5,8 @@ Use this to get all of your applications installed and optimized for web develop
 From the command line for Mac OS X and Linux:
 
 ```bash
-curl https://raw.githubusercontent.com/LaunchAcademy/rocket-fuel-chef/master/scripts/install.sh | sudo bash
+gem install rocket_fuel && rocket_fuel install
 ```
-
-For Windows, we have supplied an experimental [installer][windows-installer] that installs a limited set of tools to get started with Ruby development.
-
-Tested via http://grahamgilbert.com/blog/2013/08/23/creating-an-os-x-base-box-for-vagrant-with-packer/
 
 ### Default OS X Configuration Will Install:
 
@@ -31,12 +27,6 @@ Tested via http://grahamgilbert.com/blog/2013/08/23/creating-an-os-x-base-box-fo
 * [Quicksilver](http://qsapp.com/)
 * [Rowanj's Gitx](http://rowanj.github.io/gitx/)
 * [Node](http://nodejs.org/)
-
-### Rubies that are installed
-
-* 2.1.2 (default)
-* 2.0.0
-* 1.9.3
 
 ### Other Configuration
 

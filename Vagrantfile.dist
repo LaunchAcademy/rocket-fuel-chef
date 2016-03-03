@@ -1,0 +1,16 @@
+module RocketFuel
+  module Vagrant
+    FORWARDED_PORTS = [
+      3000,
+      4567,
+      4444,
+      8080
+    ]
+  end
+end
+
+Vagrant.configure('2') do |config|
+  ::RocketFuel::Vagrant::FORWARDED_PORTS.each do |port|
+    config.vm.network :forwarded_port, guest: port, host: port
+  end
+end
