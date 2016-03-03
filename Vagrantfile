@@ -28,7 +28,4 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 3000, host: 3000
 
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder File.join(ENV['HOME'], 'rocket_fuel'), '/rocket_fuel', create: true
-
-
 end
