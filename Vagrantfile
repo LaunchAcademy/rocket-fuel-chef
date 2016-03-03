@@ -9,6 +9,7 @@ Vagrant.configure(2) do |config|
     chef.log_level = :debug
     chef.add_recipe "fueled-linux-starter"
     chef.add_recipe "fueled-linux-starter::prereqs"
+    # chef.add_recipe "fueled-chruby"
 
     # chef.arguments = '-u vagrant'
     chef.json = {
