@@ -16,3 +16,10 @@ script 'install node via nvm' do
   nvm install v5
   SCRIPT
 end
+
+file ::File.join(ENV['HOME'], '.oh-my-zsh', 'custom', 'nvm.zsh') do
+  content "source #{File.join(nvm_path, 'nvm.sh')}"
+  owner ENV['SUDO_USER'] || node['current_user']
+  action :create_if_missing
+  only_if { FueledZsh.installed? }
+end
