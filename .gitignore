@@ -6,3 +6,4 @@
 /la_cookbooks/fueled-windows-station/resources/Output/*
 /cookbooks/fueled-windows-station/resources/vendor/*
 /cookbooks/fueled-windows-station/resources/Output/*
+*.box
