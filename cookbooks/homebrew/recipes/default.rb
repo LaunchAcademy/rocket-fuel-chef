@@ -4,7 +4,7 @@
 # Cookbook Name:: homebrew
 # Recipe:: default
 #
-# Copyright 2011-2015, Chef Software, Inc.
+# Copyright 2011-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,8 @@ homebrew_go = "#{Chef::Config[:file_cache_path]}/homebrew_go"
 Chef::Log.debug("Homebrew owner is '#{homebrew_owner}'")
 
 remote_file homebrew_go do
-  source 'https://raw.githubusercontent.com/Homebrew/install/master/install'
+  source node['homebrew']['installer']['url']
+  checksum node['homebrew']['installer']['checksum'] unless node['homebrew']['installer']['checksum'].nil?
   mode 00755
 end
 

@@ -4,7 +4,7 @@
 # Cookbook Name:: homebrew
 # Libraries:: homebrew_package
 #
-# Copyright 2011-2013, Chef Software, Inc.
+# Copyright 2011-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -80,8 +80,11 @@ unless defined?(Chef::Provider::Package::Homebrew) && Chef::Platform.find('mac_o
           end
 
           def package_info
-            require 'json'
-            JSON.parse(brew('info', @new_resource.package_name, '--json=v1'))[0]
+            @package_info ||= begin
+              Chef::Log.debug "Getting package info for #{@new_resource.package_name}"
+              require 'json'
+              JSON.parse(brew('info', @new_resource.package_name, '--json=v1'))[0]
+            end
           end
 
           def get_response_from_command(command)

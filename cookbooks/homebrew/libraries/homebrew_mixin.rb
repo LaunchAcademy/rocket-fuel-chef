@@ -4,7 +4,7 @@
 # Cookbook Name:: homebrew
 # Libraries:: homebrew_mixin
 #
-# Copyright 2011-2013, Chef Software, Inc.
+# Copyright 2011-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ module Homebrew
     def calculate_owner
       owner = homebrew_owner_attr || sudo_user || current_user
       if owner == 'root'
-        fail Chef::Exceptions::User,
+        raise Chef::Exceptions::User,
              "Homebrew owner is 'root' which is not supported. " \
              "To set an explicit owner, please set node['homebrew']['owner']."
       end
