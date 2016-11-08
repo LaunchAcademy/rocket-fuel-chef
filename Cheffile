@@ -1,7 +1,5 @@
 site 'http://community.opscode.com/api/v1'
 
-cookbook 'homebrew'
-
 cookbook 'dmg'
 cookbook 'build-essential'
 cookbook 'apt'

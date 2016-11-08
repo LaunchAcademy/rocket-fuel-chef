@@ -186,6 +186,5 @@ DEPENDENCIES
   fueled-windows-station (>= 0)
   fueled-zsh (>= 0)
   git (>= 0)
-  homebrew (>= 0)
   nvm (>= 0)
 

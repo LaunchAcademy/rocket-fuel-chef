@@ -1,5 +1,4 @@
 if platform_family?('mac_os_x')
-  include_recipe 'homebrew'
   package 'chruby'
 else
   chruby_path = "#{Chef::Config[:file_cache_path]}/chruby.tar.gz"
