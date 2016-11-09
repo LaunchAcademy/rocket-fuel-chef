@@ -2,10 +2,6 @@ include_recipe 'fueled-osx-apps::homebrew'
 
 homebrew_tap 'caskroom/cask'
 
-package "brew-cask" do
-  action :install
-end
-
 #fix permissions regression
 mkdir_p '/opt/homebrew-cask/CaskRoom' do
   owner ENV['SUDO_USER'] || node['current_user']
@@ -34,4 +30,3 @@ execute 'fix caskroom regression' do
   command 'chown -R ' + (ENV['SUDO_USER'] || node['current_user']) +
     ' /opt/homebrew-cask/CaskRoom'
 end
-
