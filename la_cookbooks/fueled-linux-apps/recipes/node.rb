@@ -13,7 +13,7 @@ script 'install node via nvm' do
   interpreter 'bash'
   code <<-SCRIPT
   source #{File.join(nvm_path, 'nvm.sh')}
-  nvm install v5
+  nvm install v7
   SCRIPT
 end
 
@@ -22,4 +22,8 @@ file ::File.join(ENV['HOME'], '.oh-my-zsh', 'custom', 'nvm.zsh') do
   owner ENV['SUDO_USER'] || node['current_user']
   action :create_if_missing
   only_if { FueledZsh.installed? }
+end
+
+execute 'install yarn' do
+  command "source #{File.join(nvm_path, 'nvm.sh')} && npm install -g yarn"
 end
