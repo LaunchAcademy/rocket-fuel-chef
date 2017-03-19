@@ -24,6 +24,10 @@ file ::File.join(ENV['HOME'], '.oh-my-zsh', 'custom', 'nvm.zsh') do
   only_if { FueledZsh.installed? }
 end
 
-execute 'install yarn' do
-  command "source #{File.join(nvm_path, 'nvm.sh')} && npm install -g yarn"
+script 'install yarn' do
+  interpreter 'bash'
+  code <<-SCRIPT
+  source #{File.join(nvm_path, 'nvm.sh')}
+  npm install -g yarn
+  SCRIPT
 end
