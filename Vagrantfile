@@ -4,6 +4,7 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "hashicorp/precise32"
   config.omnibus.chef_version = :latest
+  config.ssh.insert_key = false
 
   config.vm.provision "chef_solo" do |chef|
     chef.log_level = :debug
