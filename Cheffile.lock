@@ -22,6 +22,7 @@ SITE
       yum-epel (>= 0.0.0)
     homebrew (2.1.2)
       build-essential (>= 2.1.2)
+    locale (2.0.1)
     mingw (1.2.4)
       compat_resource (>= 0.0.0)
       seven_zip (>= 0.0.0)
@@ -186,5 +187,6 @@ DEPENDENCIES
   fueled-windows-station (>= 0)
   fueled-zsh (>= 0)
   git (>= 0)
+  locale (>= 0)
   nvm (>= 0)
 
