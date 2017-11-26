@@ -27,12 +27,12 @@ def whyrun_supported?
   true
 end
 
-def load_current_resource # rubocop:disable Metrics/AbcSize
+def load_current_resource
   @current_resource = Chef::Resource::Chocolatey.new(@new_resource.name)
   @current_resource.name(@new_resource.name)
   @current_resource.version(@new_resource.version)
-  @current_resource.source(@new_resource.source)
-  @current_resource.args(@new_resource.args)
+  @current_resource.source(@new_resource.source) unless @new_resource.source.nil?
+  @current_resource.args(@new_resource.args) unless @new_resource.args.nil?
   @current_resource.options(@new_resource.options)
   @current_resource.package(@new_resource.package)
   @current_resource.exists = package_exists?(@current_resource.package, @current_resource.version)
@@ -54,7 +54,7 @@ end
 
 def adjust_path(name)
   ruby_block "track-path-#{name}" do
-    block { ENV['PATH'] = env_path(ENV['PATH']) }
+    block { ENV['PATH'] = environment_path(ENV['PATH']) }
   end
 end
 
@@ -82,8 +82,8 @@ end
 
 def cmd_args
   output = ''
-  output += " -source #{@current_resource.source}" if @current_resource.source
-  output += " -ia '#{@current_resource.args}'" unless @current_resource.args.to_s.empty?
+  output += " --source #{@current_resource.source}" if @current_resource.source
+  output += " --installargs '#{@current_resource.args}'" unless @current_resource.args.to_s.empty?
   @current_resource.options.each do |k, v|
     output += " -#{k}"
     output += " #{v}" if v
@@ -95,7 +95,7 @@ def package_installed?(name)
   package_exists?(name, nil)
 end
 
-def package_exists?(name, version) # rubocop:disable Metrics/AbcSize
+def package_exists?(name, version)
   cmd = Mixlib::ShellOut.new("#{chocolatey_executable} list -l -r #{name}")
   cmd.run_command
   software = cmd.stdout.split("\r\n").each_with_object({}) do |s, h|
@@ -105,13 +105,14 @@ def package_exists?(name, version) # rubocop:disable Metrics/AbcSize
   end
 
   if version
-    software[name.downcase] == version.downcase
+    installed = software[name.downcase]
+    installed && installed.downcase.casecmp(version.downcase) == 0
   else
     !software[name.downcase].nil?
   end
 end
 
-def upgradeable?(name) # rubocop:disable Metrics/AbcSize
+def upgradeable?(name)
   return false unless @current_resource.exists
   unless package_installed?(name)
     Chef::Log.debug("Package isn't installed... we can upgrade it!")

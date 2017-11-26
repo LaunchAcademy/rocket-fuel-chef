@@ -1,5 +1,38 @@
 # Changelog for Chocolatey cookbook
 
+### v1.2.1 (2017-08-20)
+
+* Explicitly use the double-dash long option names for `--source` and `--installargs`
+
+### v1.2.0 (2017-05-04)
+
+* Change the default `['chocolatey']['upgrade']` attribute value to `false`. Preventing chocolatey from reinstalling every chef run
+
+### v1.1.1 (2017-04-22)
+
+* Fix chef 13 converges renaming conflicting `env_path` method
+
+### v1.1.0 (2017-01-09)
+
+* Update the chocolatey install script to match chocolatey.org.
+
+### v1.0.3 (2016-09-12)
+
+* Loosen windows-cookbook constraint
+
+### v1.0.2 (2016-08-29)
+
+* Ensure `chocolateyVersion` attribute is used and the correct version of chocolatey is installed.
+
+### v1.0.1 (2016-07-15)
+
+* Always execute chocolatey installer unless guard is satisfied to allow the install to retry on subsequent attempts if it fails.
+
+### v1.0.0 (2016-03-07)
+
+* No longer dependent on chocolatey.org for install script
+* Removed deprecated overwriting of the current_resource and fixed visibility problem with `env_path`
+
 ### v0.6.2 (2016-01-07)
 
 * Fix Chocolatey detection on chef clients older than 12.4.0

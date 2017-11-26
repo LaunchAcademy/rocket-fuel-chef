@@ -25,21 +25,28 @@ module Ark
     end
 
     def tar_binary
-      resource.run_context.node['ark']['tar']
+      @tar_binary ||= node['ark']['tar'] || case node['platform_family']
+                                            when 'mac_os_x', 'freebsd'
+                                              '/usr/bin/tar'
+                                            when 'smartos'
+                                              '/bin/gtar'
+                                            else
+                                              '/bin/tar'
+                                            end
     end
 
     def args
       case resource.extension
-      when /^(tar)$/         then "xf"
-      when /^(tar.gz|tgz)$/  then "xzf"
-      when /^(tar.bz2|tbz)$/ then "xjf"
-      when /^(tar.xz|txz)$/  then "xJf"
+      when /^(tar)$/         then 'xf'
+      when /^(tar.gz|tgz)$/  then 'xzf'
+      when /^(tar.bz2|tbz)$/ then 'xjf'
+      when /^(tar.xz|txz)$/  then 'xJf'
       else raise unsupported_extension
       end
     end
 
     def strip_args
-      resource.strip_components > 0 ? " --strip-components=#{resource.strip_components}" : ""
+      resource.strip_components > 0 ? " --strip-components=#{resource.strip_components}" : ''
     end
 
     def unsupported_extension
