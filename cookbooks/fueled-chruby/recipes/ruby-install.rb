@@ -3,7 +3,7 @@ if platform_family?('mac_os_x')
   package 'ruby-install'
 else
   install_path = "#{Chef::Config[:file_cache_path]}/ruby-install.tar.gz"
-  version = '0.4.3'
+  version = '0.6.1'
   remote_file install_path do
     source "https://github.com/postmodern/ruby-install/archive/v#{version}.tar.gz"
     action :create_if_missing

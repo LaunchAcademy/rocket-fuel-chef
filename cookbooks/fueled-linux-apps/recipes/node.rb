@@ -13,7 +13,7 @@ script 'install node via nvm' do
   interpreter 'bash'
   code <<-SCRIPT
   source #{File.join(nvm_path, 'nvm.sh')}
-  nvm install v7
+  nvm install v8
   SCRIPT
 end
 
