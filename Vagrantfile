@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "hashicorp/precise32"
+  config.vm.box = "hashicorp/precise64"
   config.omnibus.chef_version = :latest
   config.ssh.insert_key = false
 
