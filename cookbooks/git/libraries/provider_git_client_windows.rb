@@ -5,7 +5,7 @@ class Chef
       class Windows < Chef::Provider::GitClient
         include Chef::DSL::IncludeRecipe
 
-        provides :git_client, os: 'windows' if respond_to?(:provides)
+        provides :git_client, os: 'windows'
 
         action :install do
           windows_package parsed_windows_display_name do
@@ -17,7 +17,11 @@ class Chef
 
           # Git is installed to Program Files (x86) on 64-bit machines and
           # 'Program Files' on 32-bit machines
-          PROGRAM_FILES = ENV['ProgramFiles(x86)'] || ENV['ProgramFiles']
+          PROGRAM_FILES = if node['git']['architecture'] == '32'
+                            ENV['ProgramFiles(x86)'] || ENV['ProgramFiles']
+                          else
+                            ENV['ProgramW6432'] || ENV['ProgramFiles']
+                          end
           GIT_PATH = "#{PROGRAM_FILES}\\Git\\Cmd".freeze
 
           # COOK-3482 - windows_path resource doesn't change the current process
