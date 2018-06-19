@@ -18,6 +18,95 @@ This cookbook installs [Homebrew](http://brew.sh/) and provides resources for wo
 
 - none
 
+## Resources
+
+### homebrew_tap
+
+Resource for `brew tap`, a Homebrew command used to add additional formula repositories. From the `brew` man page:
+
+```text
+brew tap [--full] user/repo [URL]
+    Tap a formula repository.
+
+    With URL unspecified, taps a formula repository from GitHub using HTTPS.
+    Since so many taps are hosted on GitHub, this command is a shortcut for
+    tap user/repo https://github.com/user/homebrew-repo.
+
+    With URL specified, taps a formula repository from anywhere, using
+    any transport protocol that git handles. The one-argument form of tap
+    simplifies but also limits. This two-argument command makes no
+    assumptions, so taps can be cloned from places other than GitHub and
+    using protocols other than HTTPS, e.g., SSH, GIT, HTTP, FTP(S), RSYNC.
+
+    By default, the repository is cloned as a shallow copy (--depth=1), but
+    if --full is passed, a full clone will be used. To convert a shallow copy
+    to a full copy, you can retap passing --full without first untapping.
+```
+
+Default action is `:tap` which enables the repository. Use `:untap` to disable a tapped repository.
+
+#### Actions
+
+- `:tap` (default) - Add a tap
+- `:untap` - Remove a tap
+
+#### Properties
+
+- `:tap_name` - Optional name property to override the resource name value
+- `:url` - Optional URL to the tap
+- `:full` - Perform a full clone rather than a shallow clone on the tap (default: false)
+- `:homebrew_path` - the path to the homebrew binary (default: '/usr/local/bin/brew')
+- `:owner` - the owner of the homebrew installation (default: calculated based on existing files)
+
+#### Examples
+
+```ruby
+homebrew_tap 'homebrew/dupes'
+
+homebrew_tap 'homebrew/dupes' do
+  action :untap
+end
+
+homebrew_tap "Let's install homebrew/dupes" do
+  tap_name 'homebrew/dupes'
+  url 'https://github.com/homebrew/homebrew-dupes.git'
+  full true
+end
+```
+
+### homebrew_cask
+
+Resource for `brew cask`, a Homebrew-style CLI workflow for the administration of Mac applications distributed as binaries. It's implemented as a homebrew "external command" called cask.
+
+[homebrew-cask on GitHub](https://github.com/caskroom/homebrew-cask)
+
+#### Actions
+
+- `:install` (default) - install an Application
+- `:remove` - remove an Application.
+
+#### Properties
+
+- `:cask_name` - Optional name property to override the resource name value
+- `:options` - options to pass to the brew CLI during installation
+- `:install_cask` - auto install cask tap if necessary (default: true)
+- `:homebrew_path` - the path to the homebrew binary (default: '/usr/local/bin/brew')
+- `:owner` - the owner of the homebrew installation (default: calculated based on existing files)
+
+#### Examples
+
+```ruby
+homebrew_cask 'google-chrome'
+
+homebrew_cask "Let's remove google-chrome" do
+  cask_name 'google-chrome'
+  install_cask false
+  action :remove
+end
+```
+
+[View the list of available Casks](https://github.com/caskroom/homebrew-cask/tree/master/Casks)
+
 ## Attributes
 
 - `node['homebrew']['owner']` - The user that will own the Homebrew installation and packages. Setting this will override the default behavior which is to use the non-privileged user that has invoked the Chef run (or the `SUDO_USER` if invoked with sudo). The default is `nil`.
@@ -49,6 +138,7 @@ This cookbook installs [Homebrew](http://brew.sh/) and provides resources for wo
 - `node['homebrew']['casks']` - An Array of casks that should be installed using brew cask by default, used only in the `homebrew::install_casks` recipe.
 
 - `node['homebrew']['taps']` - An Array of taps that should be installed using brew tap by default, used only in the `homebrew::install_taps` recipe. For example:<br>
+
   ```ruby
   [
     'homebrew/science',
@@ -56,86 +146,6 @@ This cookbook installs [Homebrew](http://brew.sh/) and provides resources for wo
     { 'tap' => 'homebrew/dupes', 'url' => 'https://github.com', 'full' => true }
   ]
   ```
-
-## Resources (provider)
-
-### homebrew_tap
-
-LWRP for `brew tap`, a Homebrew command used to add additional formula repositories. From the `brew` man page:
-
-```text
-brew tap [--full] user/repo [URL]
-    Tap a formula repository.
-
-    With URL unspecified, taps a formula repository from GitHub using HTTPS.
-    Since so many taps are hosted on GitHub, this command is a shortcut for
-    tap user/repo https://github.com/user/homebrew-repo.
-
-    With URL specified, taps a formula repository from anywhere, using
-    any transport protocol that git handles. The one-argument form of tap
-    simplifies but also limits. This two-argument command makes no
-    assumptions, so taps can be cloned from places other than GitHub and
-    using protocols other than HTTPS, e.g., SSH, GIT, HTTP, FTP(S), RSYNC.
-
-    By default, the repository is cloned as a shallow copy (--depth=1), but
-    if --full is passed, a full clone will be used. To convert a shallow copy
-    to a full copy, you can retap passing --full without first untapping.
-```
-
-Default action is `:tap` which enables the repository. Use `:untap` to disable a tapped repository.
-
-#### Examples
-
-```ruby
-homebrew_tap 'homebrew/dupes'
-
-homebrew_tap 'homebrew/dupes' do
-  action :untap
-end
-
-homebrew_tap 'homebrew/dupes' do
-  url 'https://github.com/homebrew/homebrew-dupes.git'
-  full true
-end
-```
-
-### homebrew_cask
-
-LWRP for `brew cask`, a Homebrew-style CLI workflow for the administration of Mac applications distributed as binaries. It's implemented as a homebrew "external command" called cask.
-
-[homebrew-cask on GitHub](https://github.com/caskroom/homebrew-cask)
-
-#### Prerequisites
-
-You must have the homebrew-cask repository tapped.
-
-```ruby
-homebrew_tap 'caskroom/cask'
-```
-
-And then install the homebrew cask package before using this LWRP.
-
-```ruby
-package "brew-cask" do
-  action :install
-end
-```
-
-You can include the `homebrew::cask` recipe to do this.
-
-### Examples
-
-```ruby
-homebrew_cask "google-chrome"
-
-homebrew_cask "google-chrome" do
-  action :uncask
-end
-```
-
-Default action is `:cask` which installs the Application binary . Use `:uncask` to uninstall a an Application.
-
-[View the list of available Casks](https://github.com/caskroom/homebrew-cask/tree/master/Casks)
 
 # Usage
 

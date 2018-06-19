@@ -4,7 +4,7 @@
 # Cookbook:: homebrew
 # Resources:: tap
 #
-# Copyright:: 2011-2017, Chef Software, Inc.
+# Copyright:: 2011-2018, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,38 +19,35 @@
 # limitations under the License.
 #
 
-property :name,
-         String,
-         name_property: true,
-         regex: %r{^[\w-]+(?:\/[\w-]+)+$}
+property :tap_name, String, name_property: true, regex: %r{^[\w-]+(?:\/[\w-]+)+$}
 property :url, String
 property :full, [TrueClass, FalseClass], default: false
+property :homebrew_path, String, default: '/usr/local/bin/brew'
+property :owner, String, default: lazy { Homebrew.owner } # lazy to prevent breaking compilation on non-macOS platforms
 
 action :tap do
   unless tapped?(new_resource.name)
-    execute "tapping #{new_resource.name}" do
-      command "/usr/local/bin/brew tap #{full ? '--full' : ''} #{new_resource.name} #{url || ''}"
-      environment lazy { { 'HOME' => ::Dir.home(Homebrew.owner), 'USER' => Homebrew.owner } }
-      not_if "/usr/local/bin/brew tap | grep #{new_resource.name}"
-      user Homebrew.owner
+    converge_by("tap #{new_resource.name}") do
+      shell_out!("#{new_resource.homebrew_path} tap #{new_resource.full ? '--full' : ''} #{new_resource.name} #{new_resource.url || ''}",
+          user: new_resource.owner,
+          env:  { 'HOME' => ::Dir.home(new_resource.owner), 'USER' => new_resource.owner },
+          cwd: ::Dir.home(new_resource.owner))
     end
   end
 end
 
 action :untap do
   if tapped?(new_resource.name)
-    execute "untapping #{new_resource.name}" do
-      command "/usr/local/bin/brew untap #{new_resource.name}"
-      environment lazy { { 'HOME' => ::Dir.home(Homebrew.owner), 'USER' => Homebrew.owner } }
-      only_if "/usr/local/bin/brew tap | grep #{new_resource.name}"
-      user Homebrew.owner
+    converge_by("untap #{new_resource.name}") do
+      shell_out!("#{new_resource.homebrew_path} untap #{new_resource.name}",
+          user: new_resource.owner,
+          env:  { 'HOME' => ::Dir.home(new_resource.owner), 'USER' => new_resource.owner },
+          cwd: ::Dir.home(new_resource.owner))
     end
   end
 end
 
-action_class do
-  def tapped?(name)
-    tap_dir = name.gsub('/', '/homebrew-')
-    ::File.directory?("/usr/local/Homebrew/Library/Taps/#{tap_dir}")
-  end
+def tapped?(name)
+  tap_dir = name.gsub('/', '/homebrew-')
+  ::File.directory?("/usr/local/Homebrew/Library/Taps/#{tap_dir}")
 end
