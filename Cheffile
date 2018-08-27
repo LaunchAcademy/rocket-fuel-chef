@@ -1,12 +1,13 @@
 site 'http://community.opscode.com/api/v1'
 
-cookbook 'dmg'
-cookbook 'build-essential'
 cookbook 'apt'
-cookbook 'git'
-cookbook 'nvm'
+cookbook 'build-essential'
 cookbook 'chocolatey'
+cookbook 'dmg'
+cookbook 'git'
+cookbook 'homebrew'
 cookbook 'locale'
+cookbook 'nvm'
 
 [
   'fueled-chruby',
